@@ -50,42 +50,46 @@ class Times extends Component {
           <h4 className="center-align orange-text text-accent-2">
             {location.name}
           </h4>
-          <Salaah
-            name="Fajr"
-            athan={times.fajr_athan}
-            salaah={times.fajr_salaah}
-          />
-          <Salaah
-            name="Zuhr"
-            athan={times.zuhr_athan}
-            salaah={times.zuhr_salaah}
-          />
-          <Salaah
-            subtitle="Weekends and public holidays"
-            athan={times.zohr_athan_special}
-            salaah={times.zohr_salaah_special}
-          />
-          <Salaah
-            name="Jummah"
-            athan={times.jummah_athan}
-            salaah={times.jummah_salaah}
-            khutbah={times.jummah_khutbah}
-          />
-          <Salaah
-            name="Asr"
-            athan={times.asr_athan}
-            salaah={times.asr_salaah}
-          />
-          <Salaah
-            name="Maghrib"
-            athan={times.magrib_athan}
-            salaah={times.magrib_salaah}
-          />
-          <Salaah
-            name="Esha"
-            athan={times.isha_athan}
-            salaah={times.isha_salaah}
-          />
+          <div className="Salaah card">
+            <div className="card-content">
+              <Salaah
+                name="Fajr"
+                athan={times.fajr_athan}
+                salaah={times.fajr_salaah}
+              />
+              <Salaah
+                name="Zuhr"
+                athan={times.zuhr_athan}
+                salaah={times.zuhr_salaah}
+              />
+              <Salaah
+                subtitle="Weekends and public holidays"
+                athan={times.zohr_athan_special}
+                salaah={times.zohr_salaah_special}
+              />
+              <Salaah
+                name="Jummah"
+                athan={times.jummah_athan}
+                salaah={times.jummah_salaah}
+                khutbah={times.jummah_khutbah}
+              />
+              <Salaah
+                name="Asr"
+                athan={times.asr_athan}
+                salaah={times.asr_salaah}
+              />
+              <Salaah
+                name="Maghrib"
+                athan={times.magrib_athan}
+                salaah={times.magrib_salaah}
+              />
+              <Salaah
+                name="Esha"
+                athan={times.isha_athan}
+                salaah={times.isha_salaah}
+              />
+            </div>
+          </div>
         </div>
       ) : (
         <div>

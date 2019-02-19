@@ -24,13 +24,11 @@
 .Salaah .btn-flat {
   height: 20px
 }
-
-/* .Salaah .card-title {
-  margin-bottom: 0px!important;
-} */
+.Salaah .btn-flat:hover {
+  background-color: rgba(0, 0, 0, 0)!important
+}
 
 .Salaah .card-subtitle {
-  padding-top: 5px;
   padding-bottom: 5px;
 }
 
