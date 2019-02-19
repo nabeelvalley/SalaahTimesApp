@@ -14,7 +14,7 @@ class Location extends Component {
     const location_address = location.address ? <p>{location.address}</p> : null
 
     const make_default =
-      location.key === this.props.defaultLocation ? (
+      location.key === this.props.default_location ? (
         <NavLink
           to={`/times/${location.key}`}
           className="waves-effect waves-orange btn-flat"

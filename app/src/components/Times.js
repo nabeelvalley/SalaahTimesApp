@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Preloader from './Preloader'
 import { NavLink } from 'react-router-dom'
 
 class Times extends Component {
-  componentDidMount() {}
+  setLocationTimes = (key, times) => {
+    this.props.setLocationTimes(key, times)
+  }
 
-  state = {
-    times: null,
-    default_location: null,
-    title: 'Salaah Times'
+  setCurrentLocation = location => {
+    console.log(location)
+    this.props.setCurrentLocation(location)
   }
 
   componentDidMount() {
@@ -19,34 +21,67 @@ class Times extends Component {
 
     const location_key = this.props.match.params.location_key
 
-    console.log(location_key)
-
-    if (location_key)
+    if (location_key) {
       fetch(`/api/times/${location_key}`)
         .then(res => res.json())
         .then(json => {
-          console.log(json)
           const times = json
-          // this.setState({ times: times })
+          this.setLocationTimes(location_key, times)
         })
         .catch(err => {
           console.error(err)
           window.alert('Failed to load Salaah times, please refresh the page')
         })
+
+      fetch(`/api/index/${location_key}`)
+        .then(res => res.json())
+        .then(json => this.setCurrentLocation(json))
+    }
   }
 
   render() {
-    let content
-    if (!this.state.times) content = <Preloader />
-    return (
-      <div className="Home container">
-        <h4 className="center-align orange-text text-accent-2">
-          {this.state.title}
-        </h4>
-        {content}
-      </div>
-    )
+    console.log(this.props)
+    let content =
+      this.props.times && this.props.location_info ? (
+        <div>
+          {' '}
+          <h4 className="center-align orange-text text-accent-2">
+            {this.props.location_info.name}
+          </h4>
+        </div>
+      ) : (
+        <div>
+          {' '}
+          <h4 className="center-align orange-text text-accent-2">
+            Salaah Times
+          </h4>
+          <Preloader />
+        </div>
+      )
+
+    return <div className="Home container">{content}</div>
   }
 }
 
-export default Times
+const mapStateToProps = (state, ownState) => {
+  const location_key = ownState.match.params.location_key
+
+  return {
+    default_location: state.default_location,
+    times: state.times[location_key],
+    location_info: state.current_location
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setLocationTimes: (key, times) =>
+      dispatch({ type: 'SET_LOCATION_TIMES', key, times }),
+    setCurrentLocation: location => dispatch({ type: 'SET_CURRENT_LOCATION', location })
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Times)
