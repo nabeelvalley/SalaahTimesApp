@@ -20,19 +20,19 @@ class Location extends Component {
           className="waves-effect waves-orange btn-flat"
           disabled
         >
-          Default Selected
+          My Masjid
         </NavLink>
       ) : (
         <button
           onClick={this.setDefaultLocation}
           className="waves-effect waves-orange btn-flat"
         >
-          Make Default
+          Make Home
         </button>
       )
 
     return (
-      <div className="card">
+      <div className="Location card">
         <div className="card-content">
           <span className="card-title">{location.name}</span>
           {location_area}

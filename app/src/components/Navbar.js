@@ -11,10 +11,10 @@ class Navbar extends Component {
         </NavLink>
         {this.props.default_location ? (
           <NavLink
-            to={`/times/${this.props.default_location}`}
+            to="/mytimes"
             className="waves-effect waves-orange btn-flat btn"
           >
-            Salaah Times
+            Home Masjid
           </NavLink>
         ) : null}
       </div>

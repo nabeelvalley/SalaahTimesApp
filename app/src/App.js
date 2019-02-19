@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Times from './components/Times'
+import MyTimes from './components/MyTimes'
 
 class App extends Component {
   render() {
@@ -20,6 +21,10 @@ class App extends Component {
             <Route
               path="/times/:location_key"
               component={Times}
+            />
+            <Route
+              path="/mytimes"
+              component={MyTimes}
             />
             <Route component={Home} />
           </Switch>

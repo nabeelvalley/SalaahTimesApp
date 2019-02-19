@@ -8,7 +8,6 @@ const initState = {
 }
 
 const rootReducer = (state = initState, action) => {
-  console.log(state, action)
   if (action.type === 'SET_DEFAULT_LOCATION') {
     setCookie('DEFAULT_LOCATION', action.key, 3600)
     return {
@@ -17,8 +16,8 @@ const rootReducer = (state = initState, action) => {
     }
   }
   if (action.type === 'SET_LOCATION_TIMES') {
-    let times = [...state.times]
-    times[action.key] = [action.times]
+    let times = state.times
+    times[action.key] = action.times
     return {
       ...state,
       times
@@ -31,7 +30,6 @@ const rootReducer = (state = initState, action) => {
     }
   }
   if (action.type === 'SET_CURRENT_LOCATION') {
-    console.log(state, action)
     let indexes = [...state.indexes]
     indexes[action.location.key] = action.location
     let current_location = action.location
