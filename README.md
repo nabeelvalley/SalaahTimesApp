@@ -12,6 +12,8 @@ A simple app to allow masaajid to
 
 [ ] Configure build and deploy pipeline
 
+[ ] Use Redux to manage global state
+
 [ ] Refactor to an **actual** db (or at least provide a plugin that can be modified easily at a later stage)
 
 [ ] Consider using a custom theme

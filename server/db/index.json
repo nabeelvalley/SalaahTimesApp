@@ -1,4 +1,11 @@
 [
   {"name": "Pretoria Area", "key": "pretoria"},
-  {"name": "Eldo Meadows Musallah", "key": "pretoria-meadows"}
+  {
+    "name": "Madina Musallah @ Meadows",
+    "alt_name": "Eldo Meadows Musallah",
+    "key": "pretoria-meadows",
+    "address": "Lorentz Road, Eldoraigne, Centurion",
+    "area": "Pretoria"
+  }
+  
 ]

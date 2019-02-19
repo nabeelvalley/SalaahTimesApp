@@ -13,12 +13,6 @@ app.use('/api/index', (req, res) => {
 
 app.use('/api/times', require('./routes/times'));
 
-app.use('/api/info/:location_key', (req, res) => {
-  const location_key = req.params.location_key
-  const info = require(`./db/info/${location_key}.json`)
-  res.json(info)
-})
-
 app.get('*', (req, res) => {
   res.redirect('/')
 })
