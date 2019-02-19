@@ -2,6 +2,13 @@
 
 A simple app to allow masaajid to 
 
+## Bugs
+
+- Glitchy when changing pages
+- Does not load content if the home page was not loaded first
+- Seems to be having some trouble when cookies are disabled
+- PWA not caching network requests
+
 ## To Do
 
 [X] Create server to handle JSON *times* requests from React App
