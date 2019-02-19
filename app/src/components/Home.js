@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Location from './Location'
 import Preloader from './Preloader'
-import { getCookie, setCookie } from '../helpers/cookieManager'
 
 class Home extends Component {
   state = {
@@ -16,18 +15,14 @@ class Home extends Component {
         window.alert('Failed to load list of Masaajid, please refresh the page')
       })
   }
-  
-  makeDefaultLocation = key => {
-    this.props.makeDefaultLocation(key)
-  }
+
+ 
   render() {
     const content = this.state.index_list.length ? (
       this.state.index_list.map(location => (
         <Location
-          defaultLocation={this.props.default_location}
           location={location}
           key={location.key}
-          makeDefaultLocation={this.makeDefaultLocation}
         />
       ))
     ) : (

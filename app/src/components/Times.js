@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { getCookie } from '../helpers/cookieManager'
 import Preloader from './Preloader'
 import { NavLink } from 'react-router-dom'
 

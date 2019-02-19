@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 class Location extends Component {
+  setDefaultLocation = () => {
+    this.props.setDefaultLocation(this.props.location.key)
+  }
+
   render() {
     const location = this.props.location
 
@@ -19,7 +24,7 @@ class Location extends Component {
         </NavLink>
       ) : (
         <button
-          onClick={() => this.props.makeDefaultLocation(location.key)}
+          onClick={this.setDefaultLocation}
           className="waves-effect waves-orange btn-flat"
         >
           Make Default
@@ -47,4 +52,19 @@ class Location extends Component {
   }
 }
 
-export default Location
+const mapStateToProps = state => {
+  return {
+    default_location: state.default_location
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setDefaultLocation: key => dispatch({ type: 'SET_DEFAULT_LOCATION', key })
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Location)

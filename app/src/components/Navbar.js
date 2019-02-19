@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { getCookie } from '../helpers/cookieManager'
 
 class Navbar extends Component {
   render() {
@@ -22,4 +22,10 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar
+const mapStateToProps = state => {
+  return {
+    default_location: state.default_location
+  }
+}
+
+export default connect(mapStateToProps)(Navbar)
