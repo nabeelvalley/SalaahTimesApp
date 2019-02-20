@@ -13,13 +13,15 @@ A simple app to allow masaajid to
 
 [X] Create server to handle JSON *times* requests from React App
 
-[ ] Build frontend with React fot the masjid listing
+[X] Build frontend with React fot the masjid listing
 
-[ ] Build frontend with React fot the Salaah times for a specific masjid
+[X] Build frontend with React fot the Salaah times for a specific masjid
 
-[ ] Configure build and deploy pipeline
+[X] Cache network requests with PWA
 
-[ ] Use Redux to manage global state
+[X] Configure build and deploy pipeline
+
+[X] Use Redux to manage global state
 
 [ ] Refactor to an **actual** db (or at least provide a plugin that can be modified easily at a later stage)
 

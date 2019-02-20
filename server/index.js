@@ -7,8 +7,8 @@ app.use(express.static('../app/build'))
 
 app.get('/api/test', (req, res) => res.send('<h1>Test Successful<h2>'))
 
-app.use('/api/times', require('./routes/times'));
-app.use('/api/index', require('./routes/index'));
+app.use('/api/times', require(path.join(__dirname, './routes/times')))
+app.use('/api/index', require(path.join(__dirname, './routes/index')))
 
 app.get('*', (req, res) => {
   res.redirect('/')

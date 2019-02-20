@@ -22,7 +22,7 @@ if (workbox) {
 
   workbox.routing.registerRoute(
     /api\/times.*/,
-    workbox.strategies.staleWhileRevalidate({
+    workbox.strategies.cacheFirst({
       cacheName: 'times-cache',
       plugins: [
         new workbox.expiration.Plugin({
@@ -35,7 +35,7 @@ if (workbox) {
 
   workbox.routing.registerRoute(
     /api\/index.*/,
-    workbox.strategies.staleWhileRevalidate({
+    workbox.strategies.cacheFirst({
       cacheName: 'index-cache',
       plugins: [
         new workbox.expiration.Plugin({
