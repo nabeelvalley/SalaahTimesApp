@@ -1,0 +1,5 @@
+---
+applications:
+- name: my-app
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+  command: cd server && node my-app.js
