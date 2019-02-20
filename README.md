@@ -29,44 +29,6 @@ A simple app to allow masaajid to
 
 [ ] Look at PWA notifications
 
-## Deployment
-
-The build/deployment is done in an IBM Cloud Toolchain, with the following scripts to build and deploy to Cloud Foundry 
-
-### Build
-
-```bash
-#!/bin/bash
-export NVM_DIR=/home/pipeline/nvm
-export NODE_VERSION=8.12.0
-export NVM_VERSION=0.29.0
-
-npm config delete prefix \
-  && curl https://raw.githubusercontent.com/creationix/nvm/v${NVM_VERSION}/install.sh | sh \
-  && . $NVM_DIR/nvm.sh \
-  && nvm install $NODE_VERSION \
-  && nvm alias default $NODE_VERSION \
-  && nvm use default \
-  && node -v \
-  && npm -v
-
-cd app
-npm i
-npm run --prod
-rm -r node_modules
-
-cd ..
-cd server
-npm i
-```
-
-### Deploy
-
-```bash
-#!/bin/bash
-cf push "${CF_APP}"
-```
-
 ## Resources
 
 Salaah times from
