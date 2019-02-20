@@ -3,5 +3,5 @@ applications:
 - name: SalaahTimes
   random-route: true
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
-  command: cd server && node my-app.js
+  command: cd server && node index.js
   memory: 256M
