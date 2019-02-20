@@ -1,5 +1,6 @@
 ---
 applications:
-- name: my-app
+- name: SalaahTimes
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
   command: cd server && node my-app.js
+  memory: 256M
