@@ -1,8 +1,17 @@
 FROM node:8
-COPY . .
-RUN cd app
-RUN npm i && npm run build --prod && rm -r node_modules
-RUN cd ../server
+
+COPY ./app/package.json ./app/package.json
+WORKDIR /app
 RUN npm i
+RUN npm run build --prod
+RUN rm -r node_modules
+
+COPY ./server/package.json ./server/package.json
+WORKDIR /server
+RUN npm i
+
+COPY . .
+
+WORKDIR /server
 EXPOSE 3001
-CMD ["node", "server/index.js"]
+CMD ["node", "index.js"]
