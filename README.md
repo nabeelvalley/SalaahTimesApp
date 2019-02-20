@@ -31,41 +31,40 @@ A simple app to allow masaajid to
 
 ## Deployment
 
-The build/deployment is done in an IBM Cloud Toolchain, with the following scripts to build and deploy to Cloud Foundry 
+I'm deploying the app as a Docker Container as this seems to be the only method that reliably works everywhere (every other way is too platform specific)
 
-### Build
+I'm using Heroku currently, and the deployment process is as follows:
 
-```bash
-#!/bin/bash
-export NVM_DIR=/home/pipeline/nvm
-export NODE_VERSION=8.12.0
-export NVM_VERSION=0.29.0
-
-npm config delete prefix \
-  && curl https://raw.githubusercontent.com/creationix/nvm/v${NVM_VERSION}/install.sh | sh \
-  && . $NVM_DIR/nvm.sh \
-  && nvm install $NODE_VERSION \
-  && nvm alias default $NODE_VERSION \
-  && nvm use default \
-  && node -v \
-  && npm -v
-
-cd app
-npm i
-npm run --prod
-rm -r node_modules
-
-cd ..
-cd server
-npm i
-```
-
-### Deploy
+1. Build the docker image from the directory
 
 ```bash
-#!/bin/bash
-cf push "${CF_APP}"
+docker build -t salaah-times .
 ```
+
+2. Log in to Heroku
+
+```bash
+heroku login
+```
+
+3. Log in to the Container Registry
+
+```bash
+heroku container:login
+```
+
+4. Push the image, note that the `web` refers to the runner and not the app name
+
+```bash
+heroku container:push web
+```
+
+5. Deploy the image
+
+```bash
+heroku container:release web
+```
+
 
 ## Resources
 
