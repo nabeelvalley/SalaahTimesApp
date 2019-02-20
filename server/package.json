@@ -9,5 +9,10 @@
   "dependencies": {
     "express": "^4.16.4"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": ">=0.10.13 ",
+    "yarn": ">=1.7.0",
+    "npm": ">=6.4.1"
+  }
 }
