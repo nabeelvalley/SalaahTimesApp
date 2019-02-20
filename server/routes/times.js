@@ -6,7 +6,7 @@ router.use('/:location_key/:month/:day', (req, res) => {
   const location_key = req.params.location_key
   const month = req.params.month
   const day = req.params.day
-  const salaah_times = require(`../db/times/${location_key}.json`).filter(
+  const salaah_times = require(path.join(__dirname, `../db/times/${location_key}.json`)).filter(
     times => times.month == month && times.day == day
   )[0]
   res.json(salaah_times)

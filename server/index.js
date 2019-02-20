@@ -3,7 +3,7 @@ const path = require('path')
 const app = express()
 const port = process.env.PORT || 3001
 
-app.use(express.static('../app/build'))
+app.use(express.static(path.join(__dirname,'../app/build')))
 
 app.get('/api/test', (req, res) => res.send('<h1>Test Successful<h2>'))
 
