@@ -1,10 +1,11 @@
 FROM node:8
 
 COPY ./server/package.json ./server/package.json
+COPY ./app/package.json ./app/package.json
+
 WORKDIR /server
 RUN npm i
 
-COPY ./app/package.json ./app/package.json
 WORKDIR /app
 RUN npm i
 
