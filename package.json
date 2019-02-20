@@ -1,6 +1,5 @@
 {
   "scripts": {
-    "prestart": "cd app && ls && yarn install && yarn build --prod",
     "start": "cd server && ls && yarn install && node index.js"
   }
 }
