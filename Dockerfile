@@ -1,19 +1,28 @@
-FROM node:8
+# Install Node Modules
+FROM node:8 as install-packages
 
-COPY ./server/package.json ./server/package.json
-COPY ./app/package.json ./app/package.json
+COPY app/package.json ./app/package.json
+COPY server/package.json ./server/package.json
+
+WORKDIR /app
+RUN yarn
 
 WORKDIR /server
-RUN npm i
-
-WORKDIR /app
-RUN npm i
+RUN yarn
 
 WORKDIR /
-COPY . .
+COPY app ./app
 
 WORKDIR /app
-RUN npm run build --prod
+RUN yarn build
+
+# Build Production Image
+FROM node:8
+
+WORKDIR /
+COPY --from=install-packages app/build ./app/build
+COPY --from=install-packages server ./server
+COPY server server
 
 WORKDIR /server
 EXPOSE 3001
