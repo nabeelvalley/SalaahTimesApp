@@ -12,7 +12,7 @@
  * const app = express()
  * app.use(https)
  */
-const httpsRedirect = function(req, res, next) {
+const httpsRedirect = function(req, res, next){
   if (process.env.NODE_ENV === 'production') {
     if (req.headers['x-forwarded-proto'] != 'https') {
       return res.redirect('https://' + req.headers.host + req.url)
@@ -24,4 +24,4 @@ const httpsRedirect = function(req, res, next) {
   }
 }
 
-export default httpsRedirect
+module.exports = httpsRedirect
