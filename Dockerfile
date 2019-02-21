@@ -14,7 +14,6 @@ COPY . .
 
 WORKDIR /app
 RUN npm run build --prod
-RUN rm -r node_modules
 
 WORKDIR /server
 EXPOSE 3001

@@ -1,10 +1,10 @@
 const express = require('express')
 const path = require('path')
-const https = require('./httpsRedirect')
+var enforce = require('express-sslify');
 const app = express()
 const port = process.env.PORT || 3001
 
-app.use(https)
+app.use(enforce.HTTPS({ trustProtoHeader: true }))
 
 app.use(express.static(path.join(__dirname,'../app/build/')))
 
