@@ -4,14 +4,16 @@ var enforce = require('express-sslify')
 const app = express()
 const port = process.env.PORT || 3001
 
-app.use(function(req, res, next){
+app.use((req, res, next) => {
   const host = req.headers.host
   const isLocal = Boolean(
     host.includes('localhost') ||
       host.includes('[::1]') ||
       host.match(/(\d*\.){3}(\d*){1}/)
   )
-  return isLocal? next() : enforce.HTTPS({ trustProtoHeader: true })(req, res, next)
+  return isLocal
+    ? next()
+    : enforce.HTTPS({ trustProtoHeader: true })(req, res, next)
 })
 
 app.use(express.static(path.join(__dirname, '../app/build/')))
