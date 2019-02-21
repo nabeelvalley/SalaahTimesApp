@@ -416,7 +416,7 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
+  "display": "minimal-ui",
   "theme_color": "#ffab40",
   "background_color": "#ffab40"
 }
