@@ -8,6 +8,19 @@ if (workbox) {
   workbox.precaching.precacheAndRoute([])
 
   workbox.routing.registerRoute(
+    /\//,
+    workbox.strategies.cacheFirst({
+      cacheName: 'home-cache',
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxEntries: 50,
+          maxAgeSeconds: 10 * 24 * 60 * 60 // 30 Days
+        })
+      ]
+    })
+  )
+
+  workbox.routing.registerRoute(
     /\.(?:ico|png|gif|jpg|js|css|html|svg)$/,
     workbox.strategies.cacheFirst({
       cacheName: 'static-cache',
