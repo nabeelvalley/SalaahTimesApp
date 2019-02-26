@@ -12,26 +12,22 @@ class Times extends Component {
     this.props.setCurrentLocation(location)
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const location_key = this.props.match.params.location_key
+
     if (location_key) {
-      fetch(`/api/index/${location_key}`)
-        .then(res => res.json())
-        .then(json => this.setCurrentLocation(json))
-      fetch(`/api/times/${location_key}`)
-        .then(res => res.json())
-        .then(json => {
-          const times = json
-          this.setLocationTimes(location_key, times)
-        })
-        .catch(err => {
-          console.error(err)
-          window.alert('Failed to load Salaah times, please refresh the page')
-        })
+      const index_response = await fetch(`/api/index/${location_key}`)
+      const index_json = await index_response.json()
+      this.setCurrentLocation(index_json)
+
+      const times_response = await fetch(`/api/times/${location_key}`)
+      const times_json = await times_response.json()
+      this.setLocationTimes(location_key, times_json)
     }
   }
 
   render() {
+    console.log(this.props)
     const location = this.props.location_info
     let times
     if (this.props.times && location) {
@@ -105,9 +101,9 @@ class Times extends Component {
 }
 
 const mapStateToProps = (state, ownState) => {
+  const current_location_key = state.current_location ? state.current_location.key : null
   return {
-    default_location: state.default_location,
-    times: state.times[state.default_location],
+    times: state.times[current_location_key],
     location_info: state.current_location
   }
 }
