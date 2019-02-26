@@ -415,8 +415,8 @@
       "sizes": "16x16"
     }
   ],
-  "start_url": ".",
-  "display": "minimal-ui",
+  "start_url": "/",
+  "display": "standalone",
   "theme_color": "#ffab40",
   "background_color": "#ffab40"
 }

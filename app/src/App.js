@@ -5,27 +5,19 @@ import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Times from './components/Times'
 import MyTimes from './components/MyTimes'
+import Header from './components/Header'
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
         <div className="App">
-          <Navbar/>
+          <Header />
+          <Navbar />
           <Switch>
-            <Route
-              exact
-              path="/"
-              component={Home}
-            />
-            <Route
-              path="/times/:location_key"
-              component={Times}
-            />
-            <Route
-              path="/mytimes"
-              component={MyTimes}
-            />
+            <Route exact path="/" component={Home} />
+            <Route path="/times/:location_key" component={Times} />
+            <Route path="/mytimes" component={MyTimes} />
             <Route component={Home} />
           </Switch>
         </div>

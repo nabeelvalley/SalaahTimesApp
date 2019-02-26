@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 class Navbar extends Component {
   render() {
     return (
-      <div className="Navbar bottom-sticky orange accent-2">
+      <div className="Navbar z-depth-2 bottom-sticky orange accent-2">
         <NavLink to={'/'} className="waves-effect waves-orange btn-flat btn">
           Masjid Directory
         </NavLink>
