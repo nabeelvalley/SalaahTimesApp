@@ -66,8 +66,8 @@ class MyTimes extends Component {
               />
               <Salaah
                 subtitle="Weekends and public holidays"
-                athan={times.zohr_athan_special}
-                salaah={times.zohr_salaah_special}
+                athan={times.zuhr_athan_special}
+                salaah={times.zuhr_salaah_special}
               />
               <Salaah
                 name="Jummah"
