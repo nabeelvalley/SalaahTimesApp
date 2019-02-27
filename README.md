@@ -23,11 +23,15 @@ A simple app to allow masaajid to
 
 [X] Use Redux to manage global state
 
+[ ] Decide how long the |js|css|html| files should be cached
+
 [ ] Refactor to an **actual** db (or at least provide a plugin that can be modified easily at a later stage)
 
 [ ] Consider using a custom theme
 
 [ ] Look at PWA notifications
+
+[ ] Add announcement functionality
 
 ## Deployment
 
