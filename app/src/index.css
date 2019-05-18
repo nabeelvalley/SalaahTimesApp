@@ -27,6 +27,7 @@ p {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   font-size: 14px;
+  color: var(--theme-dark);
 }
 
 input {
@@ -72,7 +73,6 @@ input {
 }
 
 .search > .box {
-  color: var(--theme-dark);
   background-color: var(--theme-light);
   padding: 10.6px 60px 10.6px 20px;
   border-radius: 20px;
@@ -114,12 +114,9 @@ input {
 
 /* NextPrayer */
 
-.NextPrayer {
-  padding: 15px 20px 15px 20px;
-  height: 124px;
+.NextPrayer,
+.MasjidTimes {
   border: var(--theme-secondary) solid 1px;
-  background-image: url(images/MasjidSilhouette.svg);
-  background-size: cover;
   margin-bottom: var(--card-space);
   box-shadow: var(--card-shadow);
   display: flex;
@@ -127,8 +124,16 @@ input {
   max-width: var(--card-max-width);
 }
 
+.NextPrayer {
+  padding: 15px 20px 15px 20px;
+  background-image: url(images/MasjidSilhouette.svg);
+  background-size: cover;
+  height: 124px;
+}
+
 @media (min-width: 400px) {
-  .NextPrayer {
+  .NextPrayer,
+  .MasjidTimes {
     width: 80%;
   }
 }
@@ -143,7 +148,6 @@ input {
   font-size: 14px;
   margin-top: 10px;
   flex-grow: 2;
-  color: var(--theme-dark);
 }
 
 .NextPrayer > .time {
@@ -152,4 +156,65 @@ input {
   color: var(--theme-light);
   text-align: center;
   bottom: 0px;
+}
+
+/* MasjidTimes */
+
+.MasjidTimes {
+  padding: 15px 20px 0px 20px;
+}
+
+.MasjidTimes > * :not(.times) {
+  padding-left: 20px;
+}
+
+.MasjidTimes > .name {
+  font-size: 20px;
+  color: var(--theme-primary);
+  font-weight: 500;
+}
+
+.MasjidTimes > .address {
+  font-size: 14px;
+  padding-top: 10px;
+}
+
+.MasjidTimes > .pills {
+  display: flex;
+}
+
+.MasjidTimes > .pills .pill {
+  font-size: 12px;
+  padding: 1px 8px 1px 8px;
+  border-radius: 9.6px;
+  border: 1px solid var(--theme-dark);
+  margin-top: 12px;
+  margin-right: 10px;
+  margin-bottom: -9.6px;
+  z-index: 10;
+  background-color: var(--theme-light);
+  font-weight: 300;
+}
+
+.MasjidTimes > .pills > .-selected {
+  background-color: var(--theme-secondary);
+  color: var(--theme-light);
+  border-color: var(--theme-secondary);
+  transition-property: color, border-color, background-color;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in;
+}
+
+.MasjidTimes > .times {
+  display: flex;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-bottom: 15px;
+  justify-content: space-evenly;
+  padding-top: 20px;
+  background-color: var(--theme-primary);
+}
+
+.MasjidTimes > .times * {
+  color: var(--theme-light);
 }
