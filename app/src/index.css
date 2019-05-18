@@ -164,10 +164,6 @@ input {
   padding: 15px 20px 0px 20px;
 }
 
-.MasjidTimes > * :not(.times) {
-  padding-left: 20px;
-}
-
 .MasjidTimes > .name {
   font-size: 20px;
   color: var(--theme-primary);

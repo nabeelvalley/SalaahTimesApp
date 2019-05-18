@@ -100,9 +100,21 @@ class Home extends Component {
     })
   }
 
-  render() {
-    let now = new Date()
+  filterLocations() {
+    return this.state.salaahTimes.filter(
+      location =>
+        location.name
+          .toLowerCase()
+          .replace(/\ /g, '')
+          .includes(this.props.searchTerm.toLowerCase().replace(/\ /g, '')) ||
+        location.address
+          .toLowerCase()
+          .replace(/\ /g, '')
+          .includes(this.props.searchTerm.toLowerCase().replace(/\ /g, ''))
+    )
+  }
 
+  normalizeTimes() {
     let times = {}
 
     if (this.state.localData && this.state.localData.timings) {
@@ -113,6 +125,12 @@ class Home extends Component {
       times.esha = this.state.localData.timings.Isha
     }
 
+    return times
+  }
+
+  getCurrentSalaah() {
+    let now = new Date()
+    let times = this.normalizeTimes()
     let currentSalaah = ''
 
     for (const salaah in times) {
@@ -129,28 +147,12 @@ class Home extends Component {
       }
     }
 
-    let filteredTimes = this.state.salaahTimes.filter(
-      location =>
-        location.name
-          .toLowerCase()
-          .replace(/\ /g, '')
-          .includes(this.props.searchTerm.toLowerCase().replace(/\ /g, '')) ||
-        location.address
-          .toLowerCase()
-          .replace(/\ /g, '')
-          .includes(this.props.searchTerm.toLowerCase().replace(/\ /g, ''))
-    )
+    return currentSalaah
+  }
 
-    let renderedTimes = filteredTimes.map((details, index) =>
-      currentSalaah && details ? (
-        <MasjidTimes
-          key={index}
-          details={details}
-          currentSalaah={currentSalaah}
-        />
-      ) : null
-    )
-
+  getNextSalaah() {
+    let now = new Date()
+    let times = this.normalizeTimes()
     let nextSalaah = ''
 
     for (const salaah in times) {
@@ -168,13 +170,40 @@ class Home extends Component {
     }
 
     if (!nextSalaah) nextSalaah = 'fajr'
+    return nextSalaah
+  }
+
+  getNextSalaahTime(nextSalaah) {
+    const times = this.normalizeTimes()
     let nextSalaahTime = ''
     if (times.hasOwnProperty(nextSalaah))
       nextSalaahTime = times[nextSalaah].slice(0, 5)
+    return nextSalaahTime
+  }
+
+  render() {
+    const now = new Date()
+    const times = this.normalizeTimes()
+    const currentSalaah = this.getCurrentSalaah()
+    const nextSalaah = this.getNextSalaah()
+
+    let nextSalaahTime = this.getNextSalaahTime(nextSalaah)
 
     let renderedNext = times ? (
       <NextPrayer salaah={nextSalaah} time={nextSalaahTime} />
     ) : null
+
+    let filteredTimes = this.filterLocations()
+
+    let renderedTimes = filteredTimes.map((details, index) =>
+      currentSalaah && details ? (
+        <MasjidTimes
+          key={index}
+          details={details}
+          currentSalaah={currentSalaah}
+        />
+      ) : null
+    )
 
     return (
       <div className='Home'>
