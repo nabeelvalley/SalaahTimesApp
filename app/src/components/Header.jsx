@@ -14,6 +14,7 @@ class Header extends Component {
             className='box'
           >
             <input
+              aria-label='Find a Masjid'
               onChange={event => this.props.handleChange(event.target.value)}
               type='text'
               placeholder='Find a Masjid'
