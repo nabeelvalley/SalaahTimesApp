@@ -1,58 +1,82 @@
-.App {
-  padding-bottom: 66px;
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,500&display=swap');
+
+:root {
+  --theme-primary: #84c5ff;
+  --theme-secondary: #51adff;
+  --theme-light: #ffffff;
+  --theme-dark: #707070;
 }
 
-.Navbar {
-  display: flex;
-  flex-direction: row;
-  padding: 10px;
-  width: 100vw;
-  box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12);
+/* Reset */
+body,
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  padding: 0;
+  margin: 0;
 }
 
-.Navbar .btn-flat {
-  color: white;
-  flex-grow: 1;
+* {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
 }
 
-.Salaah .times {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding-bottom: 20px;
+input {
+  border: none;
 }
 
-.Salaah .btn-flat {
-  height: 20px
+/* Header */
+
+.Header {
+  background-color: var(--theme-primary);
+  position: absolute;
+  width: 100%;
+  box-shadow: 0px 0px 10px 1px var(--theme-dark);
 }
 
-.Salaah .btn-flat:hover {
-  background-color: rgba(0, 0, 0, 0) !important
-}
-
-.Salaah .card-subtitle {
-  padding-bottom: 5px;
-}
-
-.Salaah .card-content {
+.Header > .title {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--theme-light);
+  text-align: center;
   padding-top: 15px;
 }
 
-.bottom-sticky {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
+.search {
+  padding-top: 15px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.Location .card-action {
-  padding: 8px 0px !important;
+.search > .box {
+  color: var(--theme-dark);
+  background-color: var(--theme-light);
+  padding: 10.6px 60px 10.6px 20px;
+  border-radius: 20px;
+  width: 220px;
 }
 
-.Location .card-content {
-  padding: 18px !important;
+.search > .box > input {
+  width: 100%;
+  outline: none;
 }
 
-.btn:hover {
-  background-color: rgba(0, 0, 0, 0.1) !important;
+.search > .box::after {
+  content: url(images/SearchIcon.svg);
+  position: absolute;
+  margin-top: -2px;
+  margin-left: 20px;
+}
+
+/* Home */
+
+.Home {
+  padding-top: 120px;
 }

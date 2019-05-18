@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="21.019" height="24.171" viewBox="0 0 21.019 24.171">
+  <g id="Search_Icon" data-name="Search Icon" transform="translate(-52.051 -552.415) rotate(-7)">
+    <rect id="Icon_Container" data-name="Icon Container" width="21" height="24" transform="translate(-15.662 554.814) rotate(7)" fill="#fff"/>
+    <g id="Ellipse_1" data-name="Ellipse 1" transform="translate(-17.543 569.977) rotate(-73)" fill="#fff" stroke="#84c5ff" stroke-width="2">
+      <circle cx="7.845" cy="7.845" r="7.845" stroke="none"/>
+      <circle cx="7.845" cy="7.845" r="6.845" fill="none"/>
+    </g>
+    <line id="Line_1" data-name="Line 1" x1="6.123" y2="6.164" transform="translate(-6.152 576.991) rotate(-73)" fill="none" stroke="#84c5ff" stroke-linecap="round" stroke-width="2"/>
+  </g>
+</svg>
