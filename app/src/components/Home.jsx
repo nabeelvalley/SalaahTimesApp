@@ -47,7 +47,7 @@ class Home extends Component {
     })
 
     fetch(
-      `http://api.aladhan.com/v1/calendarByAddress?address=Pretoria South Africa&month=${now.getMonth() +
+      `https://api.aladhan.com/v1/calendarByAddress?address=Pretoria South Africa&month=${now.getMonth() +
         1}&year=${now.getFullYear}&school=1`,
       request
     )
