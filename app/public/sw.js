@@ -40,7 +40,7 @@ if (workbox) {
       plugins: [
         new workbox.expiration.Plugin({
           maxEntries: 50,
-          maxAgeSeconds: 5 * 24 * 60 * 60
+          maxAgeSeconds: 0.3 * 24 * 60 * 60
         })
       ]
     })

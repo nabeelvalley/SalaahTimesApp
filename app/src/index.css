@@ -1,58 +1,217 @@
-.App {
-  padding-bottom: 66px;
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,500&display=swap');
+
+:root {
+  --theme-primary: #84c5ff;
+  --theme-secondary: #51adff;
+  --theme-light: #ffffff;
+  --theme-dark: #707070;
+  --card-shadow: 0px 0px 10px 1px #c7c7c7;
+  --card-max-width: 330px;
+  --card-space: 20px;
 }
 
-.Navbar {
-  display: flex;
-  flex-direction: row;
-  padding: 10px;
-  width: 100vw;
-  box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.16), 0 -2px 10px 0 rgba(0, 0, 0, 0.12);
+/* Reset */
+body,
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  padding: 0;
+  margin: 0;
 }
 
-.Navbar .btn-flat {
-  color: white;
-  flex-grow: 1;
+* {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--theme-dark);
 }
 
-.Salaah .times {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding-bottom: 20px;
+input {
+  border: none;
 }
 
-.Salaah .btn-flat {
-  height: 20px
+/* Header */
+
+.Header {
+  background-color: var(--theme-primary);
+  position: fixed;
+  opacity: 0.95;
+  width: 100%;
+  top: 0;
+  box-shadow: 0px 0px 10px 1px var(--theme-dark);
+  z-index: 20;
 }
 
-.Salaah .btn-flat:hover {
-  background-color: rgba(0, 0, 0, 0) !important
-}
-
-.Salaah .card-subtitle {
-  padding-bottom: 5px;
-}
-
-.Salaah .card-content {
+.Header > .title {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--theme-light);
+  text-align: center;
   padding-top: 15px;
 }
 
-.bottom-sticky {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
+@media (orientation: landscape) and (min-width: 550px) {
+  .Header {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .Header > .title {
+    padding-top: 20px;
+  }
 }
 
-.Location .card-action {
-  padding: 8px 0px !important;
+.search {
+  padding-top: 15px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.Location .card-content {
-  padding: 18px !important;
+.search > .box {
+  background-color: var(--theme-light);
+  padding: 10.6px 60px 10.6px 20px;
+  border-radius: 20px;
+  width: 220px;
 }
 
-.btn:hover {
-  background-color: rgba(0, 0, 0, 0.1) !important;
+.search > .box > input {
+  width: 100%;
+  outline: none;
+}
+
+.search > .box::after {
+  content: url(images/SearchIcon.svg);
+  position: absolute;
+  margin-top: -2px;
+  margin-left: 20px;
+}
+
+/* Home */
+
+.Home {
+  margin-top: 120px;
+  padding: 15px;
+}
+
+@media (min-width: 400px) {
+  .Home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (orientation: landscape) and (min-width: 550px) {
+  .Home {
+    margin-top: 76px;
+  }
+}
+
+/* NextPrayer */
+
+.NextPrayer,
+.MasjidTimes {
+  border: var(--theme-secondary) solid 1px;
+  margin-bottom: var(--card-space);
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  max-width: var(--card-max-width);
+}
+
+.NextPrayer {
+  padding: 15px 20px 15px 20px;
+  background-image: url(images/MasjidSilhouette.svg);
+  background-size: cover;
+  height: 124px;
+}
+
+@media (min-width: 400px) {
+  .NextPrayer,
+  .MasjidTimes {
+    width: 80%;
+  }
+}
+
+.NextPrayer > .title {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--theme-primary);
+}
+
+.NextPrayer > .name {
+  font-size: 14px;
+  margin-top: 10px;
+  flex-grow: 2;
+}
+
+.NextPrayer > .time {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--theme-light);
+  text-align: center;
+  bottom: 0px;
+}
+
+/* MasjidTimes */
+
+.MasjidTimes {
+  padding: 15px 20px 0px 20px;
+}
+
+.MasjidTimes > .name {
+  font-size: 20px;
+  color: var(--theme-primary);
+  font-weight: 500;
+}
+
+.MasjidTimes > .address {
+  font-size: 14px;
+  padding-top: 10px;
+}
+
+.MasjidTimes > .pills {
+  display: flex;
+}
+
+.MasjidTimes > .pills .pill {
+  font-size: 12px;
+  padding: 1px 8px 1px 8px;
+  border-radius: 9.6px;
+  border: 1px solid var(--theme-dark);
+  margin-top: 12px;
+  margin-right: 10px;
+  margin-bottom: -9.6px;
+  z-index: 10;
+  background-color: var(--theme-light);
+  font-weight: 300;
+}
+
+.MasjidTimes > .pills > .-selected {
+  background-color: var(--theme-secondary);
+  color: var(--theme-light);
+  border-color: var(--theme-secondary);
+  transition-property: color, border-color, background-color;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-in;
+}
+
+.MasjidTimes > .times {
+  display: flex;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-bottom: 15px;
+  justify-content: space-evenly;
+  padding-top: 20px;
+  background-color: var(--theme-primary);
+}
+
+.MasjidTimes > .times * {
+  color: var(--theme-light);
 }
