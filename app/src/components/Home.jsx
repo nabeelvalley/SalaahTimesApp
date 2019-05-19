@@ -39,7 +39,6 @@ class Home extends Component {
 
         this.setState({ ...this.state, salaahTimes })
       })
-    // fetch real data here
 
     const now = new Date()
 
@@ -49,7 +48,7 @@ class Home extends Component {
 
     fetch(
       `http://api.aladhan.com/v1/calendarByAddress?address=Pretoria South Africa&month=${now.getMonth() +
-        1}&year=${now.getFullYear}`,
+        1}&year=${now.getFullYear}&school=1`,
       request
     )
       .then(res => res.json())
@@ -93,20 +92,22 @@ class Home extends Component {
     let times = this.normalizeTimes()
     let currentSalaah = ''
 
-    for (const salaah in times) {
+    for (const salaah of ['fajr', 'zuhr', 'asr', 'maghrib', 'esha']) {
       if (times.hasOwnProperty(salaah)) {
         const time = times[salaah].slice(0, 5)
         let salaahTime = new Date(
-          `${now.getMonth()}/${now.getDate()}/${now.getFullYear()} ${time}`
+          `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()} ${time}`
         )
 
-        currentSalaah = salaah.toLowerCase()
-        if (salaahTime > now) {
-          break
+        if (now.getTime() > salaahTime.getTime()) {
+          currentSalaah = salaah
+        } else {
+          currentSalaah = currentSalaah
         }
       }
     }
 
+    if (!currentSalaah) currentSalaah = 'fajr'
     return currentSalaah
   }
 
@@ -115,16 +116,17 @@ class Home extends Component {
     let times = this.normalizeTimes()
     let nextSalaah = ''
 
-    for (const salaah in times) {
+    for (const salaah of ['fajr', 'zuhr', 'asr', 'maghrib', 'esha'].reverse()) {
       if (times.hasOwnProperty(salaah)) {
         const time = times[salaah].slice(0, 5)
         let salaahTime = new Date(
-          `${now.getMonth()}/${now.getDate()}/${now.getFullYear()} ${time}`
+          `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()} ${time}`
         )
 
-        if (salaahTime > now) {
-          nextSalaah = salaah.toLowerCase()
+        if (salaahTime.getTime() < now.getTime()) {
           break
+        } else {
+          nextSalaah = salaah
         }
       }
     }

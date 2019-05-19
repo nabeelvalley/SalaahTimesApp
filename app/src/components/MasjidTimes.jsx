@@ -2,12 +2,18 @@ import React, { Component } from 'react'
 
 class MasjidTimes extends Component {
   state = {
-    currentTab: ''
+    currentTab: '',
+    tabChanged: false
   }
 
-  constructor({ currentSalaah }) {
-    super()
-    this.state.currentTab = currentSalaah
+  constructor(props) {
+    super(props)
+    this.state.currentTab = props.currentSalaah
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const currentTab = state.tabChanged ? state.currentTab : props.currentSalaah
+    return { ...state, currentTab, tabChanged: false }
   }
 
   render() {
@@ -17,7 +23,13 @@ class MasjidTimes extends Component {
       this.props.details[salaah] ? (
         <div
           key={salaah}
-          onClick={() => this.setState({ ...this.state, currentTab: salaah })}
+          onClick={() =>
+            this.setState({
+              ...this.state,
+              currentTab: salaah,
+              tabChanged: true
+            })
+          }
           className={
             'pill ' + (this.state.currentTab === salaah ? '-selected' : '')
           }
