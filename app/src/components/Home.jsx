@@ -9,71 +9,36 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const salaahTimes = [
-      {
-        name: 'Eldo Meadows Musallah',
-        address: 'Cnr Saxby and Weirda Rd',
-        fajr: {
-          athaan: '5:25am',
-          salaah: '5:40am'
-        },
-        zuhr: {
-          athaan: '1:00pm',
-          salaah: '1:15pm'
-        },
-        asr: {
-          athaan: '4:30pm',
-          salaah: '4:45pm'
-        },
-        maghrib: {
-          athaan: '5:33pm'
-        },
-        esha: {
-          athaan: '7:00pm',
-          salaah: '7:15pm'
-        }
-      },
-      {
-        name: 'Abu Bakr Siddique',
-        address: 'Cnr van Leenhof and van den Heever',
-        fajr: {
-          athaan: '5:25am',
-          salaah: '5:40am'
-        },
-        zuhr: {
-          athaan: '1:00pm',
-          salaah: '1:15pm'
-        },
-        maghrib: {
-          athaan: '5:33pm'
-        },
-        esha: {
-          athaan: '7:00pm',
-          salaah: '7:15pm'
-        }
-      },
-      {
-        name: 'Eldoraigne Musallah',
-        address: 'Willem Botha Str',
-        zuhr: {
-          athaan: '1:00pm',
-          salaah: '1:15pm'
-        },
-        asr: {
-          athaan: '4:30pm',
-          salaah: '4:45pm'
-        },
-        maghrib: {
-          athaan: '5:33pm',
-          salaah: '5:36pm'
-        },
-        esha: {
-          athaan: '7:00pm',
-          salaah: '7:15pm'
-        }
-      }
-    ]
+    fetch('/api/times')
+      .then(res => res.json())
+      .then(json => {
+        var salaahTimes = json.map(masjid => ({
+          name: masjid.name,
+          address: masjid.address,
+          fajr: {
+            salaah: masjid.fajrSalaah,
+            athaan: masjid.fajrAthaan
+          },
+          zuhr: {
+            salaah: masjid.zuhrSalaah,
+            athaan: masjid.zuhrAthaan
+          },
+          asr: {
+            salaah: masjid.asrSalaah,
+            athaan: masjid.asrAthaan
+          },
+          maghrib: {
+            salaah: masjid.maghribSalaah,
+            athaan: masjid.maghribAthaan
+          },
+          esha: {
+            salaah: masjid.eshaSalaah,
+            athaan: masjid.eshaAthaan
+          }
+        }))
 
+        this.setState({ ...this.state, salaahTimes })
+      })
     // fetch real data here
 
     const now = new Date()
@@ -93,11 +58,6 @@ class Home extends Component {
         console.log(localData)
         this.setState({ ...this.state, localData })
       })
-
-    this.setState({
-      ...this.state,
-      salaahTimes
-    })
   }
 
   filterLocations() {

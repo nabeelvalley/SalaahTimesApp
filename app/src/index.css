@@ -43,6 +43,7 @@ input {
   width: 100%;
   top: 0;
   box-shadow: 0px 0px 10px 1px var(--theme-dark);
+  z-index: 20;
 }
 
 .Header > .title {
