@@ -20,7 +20,9 @@ class MasjidTimes extends Component {
     let selectedTimes = this.props.details[this.state.currentTab]
 
     let pills = ['fajr', 'zuhr', 'asr', 'maghrib', 'esha'].map(salaah =>
-      this.props.details[salaah] ? (
+      this.props.details[salaah] &&
+      (this.props.details[salaah].salaah ||
+        this.props.details[salaah].athaan) ? (
         <div
           key={salaah}
           onClick={() =>
