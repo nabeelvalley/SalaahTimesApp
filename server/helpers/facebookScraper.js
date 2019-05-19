@@ -370,8 +370,6 @@ function facebookScraper(post) {
             eshaSalaah: esha
         }
 
-        // console.log(zuhrMatch)
-        console.log(times)
         masjidTimes.push(times)
     })
 
