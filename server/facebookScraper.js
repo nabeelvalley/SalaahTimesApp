@@ -318,7 +318,7 @@ function facebookScraper(post) {
 
     masjidChunks.forEach(chunk => {
         chunk = chunk.replace(/\*/g, '')
-        const id = 'PretoriaSalaahTimesFB-' + chunk.match(/\d+/)
+        const key = 'PretoriaSalaahTimesFB-' + chunk.match(/\d+/)
         const title = chunk
             .slice(0, chunk.match('\n').index)
             .replace(/^\d+\./, '')
@@ -361,13 +361,13 @@ function facebookScraper(post) {
             : ''
 
         const times = {
-            id, title, name, address,
+            key, title, name, address,
             location: 'Pretoria',
-            fajr: { salaah: fajr },
-            zuhr: { salaah: zuhr },
-            asr: { salaah: asr },
-            maghrib: { salaaah: maghrib },
-            esha: { salaah: esha }
+            fajrSalaah: fajr,
+            zuhrSalaah: zuhr,
+            asrSalaah: asr,
+            maghribSalaah: maghrib,
+            eshaSalaah: esha
         }
 
         // console.log(zuhrMatch)
