@@ -21,8 +21,12 @@ const getAllTimes = async () => {
     return times
 }
 
+const updateMasjd = async (masjid) => {
+    var document = db.collection('masaajid').doc(masjid.key)
+    document.set(masjid)
+}
 
 
 module.exports = {
-    saveMasjid, getAllTimes
+    saveMasjid, getAllTimes, updateMasjd
 }

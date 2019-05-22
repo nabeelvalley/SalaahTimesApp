@@ -1,3 +1,6 @@
+require('dotenv').config()
+process.env.ADMINKEY = process.env.ADMINKEY || 'adminKey'
+
 const express = require('express')
 const path = require('path')
 

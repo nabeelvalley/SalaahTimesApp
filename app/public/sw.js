@@ -59,6 +59,19 @@ if (workbox) {
     })
   )
 
+  workbox.routing.registerRoute(
+    /^https:\/\/api.aladhan.com/,
+    workbox.strategies.cacheFirst({
+      cacheName: 'location-times-cache',
+      plugins: [
+        new workbox.expiration.Plugin({
+          maxEntries: 50,
+          maxAgeSeconds: 5 * 24 * 60 * 60
+        })
+      ]
+    })
+  )
+
   // Cache the Google Fonts stylesheets with a stale-while-revalidate strategy.
   workbox.routing.registerRoute(
     /^https:\/\/fonts\.googleapis\.com/,

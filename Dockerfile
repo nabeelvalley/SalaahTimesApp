@@ -1,5 +1,5 @@
 # Install Node Modules
-FROM node:8 as install-packages
+FROM node:12 as install-packages
 
 COPY app/package.json ./app/package.json
 COPY server/package.json ./server/package.json
@@ -17,7 +17,7 @@ WORKDIR /app
 RUN yarn build
 
 # Build Production Image
-FROM node:8
+FROM node:12
 
 WORKDIR /
 COPY --from=install-packages app/build ./app/build

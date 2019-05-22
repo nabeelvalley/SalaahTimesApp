@@ -1,5 +1,5 @@
 const facebookScraper = require('../helpers/facebookScraper')
-const saveMasjid = require('../helpers/firebase').saveMasjid
+const updateMasjid = require('../helpers/firebase').updateMasjd
 
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -24,21 +24,26 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/adminupdate/submitform', (req, res) => {
+  const salaahTimes = []
   const key = req.body.key
-  if (key === 'adminKey' || process.env.ADMINKEY) {
+  if (key === process.env.ADMINKEY) {
     const content = req.body.message
     console.log(content)
-    const salaahTimes = facebookScraper(content)
+    salaahTimes = facebookScraper(content)
     salaahTimes.forEach(masjid => {
-      saveMasjid(masjid)
+      // updateMasjid(masjid)
     })
-    res.json(salaahTimes)
   }
+  res.json(salaahTimes)
 })
 
 router.get('/adminupdate', (req, res) => res.send(`
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Admin page</title>
 </head>
 <body>
@@ -59,7 +64,6 @@ router.get('/adminupdate', (req, res) => res.send(`
     function handleSubmit(event){
       event.preventDefault()
       let body = {key: document.querySelector('input').value, message: document.querySelector('textarea').value}
-      debugger
       fetch('/api/times/adminupdate/submitform' , {method: 'post', body: JSON.stringify(body), headers: new Headers({
         'Content-Type': 'application/json'
       })})
