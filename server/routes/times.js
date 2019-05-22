@@ -31,7 +31,7 @@ router.post('/adminupdate/submitform', (req, res) => {
     console.log(content)
     salaahTimes = facebookScraper(content)
     salaahTimes.forEach(masjid => {
-      // updateMasjid(masjid)
+      updateMasjid(masjid)
     })
   }
   res.json(salaahTimes)
