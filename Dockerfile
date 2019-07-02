@@ -3,30 +3,29 @@ FROM node:10 as install-packages
 
 COPY app/package.json ./app/package.json
 COPY strapi/package.json ./strapi/package.json
-RUN yarn global add strapi
 
 WORKDIR /app
-RUN yarn
+RUN npm i
 
 WORKDIR /strapi
-RUN yarn
+RUN npm i
 
-RUN yarn build
+RUN npm run build
 
 WORKDIR /
 COPY app ./app
 
 WORKDIR /app
-RUN yarn build
+RUN npm run build
 
 # Build Production Image
 FROM node:10
 
-RUN yarn global add strapi
+RUN yarn add strapi
 
 WORKDIR /
 COPY --from=install-packages strapi/build build
 COPY --from=install-packages app/build build/public
 
 EXPOSE 3001
-CMD ["strapi", "start"]
+CMD ["npm", "start"]
