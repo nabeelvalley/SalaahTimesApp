@@ -1,6 +1,14 @@
 # Salaah Times App
 
-A simple app to allow masaajid to 
+## Running Develop
+
+1. Ensure you are using `Node.js v10`
+2. Install the dependencies in the `app` and `strapi` directories with `yarn`
+3. Requires a Mongo Service to be running on `127.0.0.1:27017` (localhost)
+4. Run the frontend from the `app` directory with `yarn start`
+5. Run the strapi backend from the `strapi` directory with `yarn start`
+
+Once ready, run `npm run develop`
 
 ## Bugs
 
@@ -11,7 +19,7 @@ A simple app to allow masaajid to
 
 ## To Do
 
-[X] Create server to handle JSON *times* requests from React App
+[X] Create server to handle JSON _times_ requests from React App
 
 [X] Build frontend with React fot the masjid listing
 
@@ -68,7 +76,6 @@ heroku container:push web
 ```bash
 heroku container:release web
 ```
-
 
 ## Resources
 

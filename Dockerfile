@@ -10,15 +10,21 @@ RUN npm i
 WORKDIR /strapi
 RUN npm i
 
+# Build Strapi
+WORKDIR /
+COPY strapi ./strapi
+
+WORKDIR /strapi
 RUN npm run build
 
+# Build React
 WORKDIR /
 COPY app ./app
 
 WORKDIR /app
 RUN npm run build
 
-# Build Production Image
+# Assemble Production Image
 FROM node:10
 
 RUN yarn add strapi
