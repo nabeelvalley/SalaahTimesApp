@@ -9,31 +9,52 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/times')
+    fetch('/masjids')
       .then(res => res.json())
       .then(json => {
+        console.log(json)
         var salaahTimes = json.map(masjid => ({
-          name: masjid.name,
-          address: masjid.address,
+          name: masjid.Name,
+          address: masjid.Address,
           fajr: {
-            salaah: masjid.fajrSalaah,
-            athaan: masjid.fajrAthaan
+            salaah: masjid.FajrSalaah
+              ? this.getDisplayTime(masjid.FajrSalaah)
+              : '',
+            athaan: masjid.FajrAthaan
+              ? this.getDisplayTime(masjid.FajrAthaan)
+              : ''
           },
           zuhr: {
-            salaah: masjid.zuhrSalaah,
-            athaan: masjid.zuhrAthaan
+            salaah: masjid.ZuhrSalaah
+              ? this.getDisplayTime(masjid.ZuhrSalaah)
+              : '',
+            athaan: masjid.ZuhrAthaan
+              ? this.getDisplayTime(masjid.ZuhrAthaan)
+              : ''
           },
           asr: {
-            salaah: masjid.asrSalaah,
-            athaan: masjid.asrAthaan
+            salaah: masjid.AsrSalaah
+              ? this.getDisplayTime(masjid.AsrSalaah)
+              : '',
+            athaan: masjid.AsrAthaan
+              ? this.getDisplayTime(masjid.AsrAthaan)
+              : ''
           },
           maghrib: {
-            salaah: masjid.maghribSalaah,
-            athaan: masjid.maghribAthaan
+            salaah: masjid.MaghribSalaah
+              ? this.getDisplayTime(masjid.MaghribSalaah)
+              : '',
+            athaan: masjid.MaghribAthaan
+              ? this.getDisplayTime(masjid.MaghribAthaan)
+              : ''
           },
           esha: {
-            salaah: masjid.eshaSalaah,
-            athaan: masjid.eshaAthaan
+            salaah: masjid.EshaSalaah
+              ? this.getDisplayTime(masjid.EshaSalaah)
+              : '',
+            athaan: masjid.EshaAthaan
+              ? this.getDisplayTime(masjid.EshaAthaan)
+              : ''
           }
         }))
 
@@ -73,6 +94,18 @@ class Home extends Component {
     )
   }
 
+  getDisplayTime(dateString) {
+    var date = new Date(dateString)
+    var hours = date.getHours()
+    var minutes = date.getMinutes()
+    var ampm = hours >= 12 ? 'pm' : 'am'
+    hours = hours % 12
+    hours = hours ? hours : 12 // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes
+    var strTime = hours + ':' + minutes + ' ' + ampm
+    return strTime
+  }
+
   normalizeTimes() {
     let times = {}
 
@@ -101,8 +134,6 @@ class Home extends Component {
 
         if (now.getTime() > salaahTime.getTime()) {
           currentSalaah = salaah
-        } else {
-          currentSalaah = currentSalaah
         }
       }
     }

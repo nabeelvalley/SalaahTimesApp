@@ -13,7 +13,8 @@
   },
   "attributes": {
     "Name": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "Address": {
       "type": "string"
@@ -24,6 +25,42 @@
     },
     "Suburb": {
       "type": "string"
+    },
+    "FajrAthaan": {
+      "type": "date"
+    },
+    "FajrSalaah": {
+      "type": "date"
+    },
+    "ZuhrAthaan": {
+      "type": "date"
+    },
+    "ZuhrSalaah": {
+      "type": "date"
+    },
+    "AsrAthaan": {
+      "type": "date"
+    },
+    "AsrSalaah": {
+      "type": "date"
+    },
+    "MaghribAthaan": {
+      "type": "date"
+    },
+    "MaghribSalaah": {
+      "type": "date"
+    },
+    "EshaAthaan": {
+      "type": "date"
+    },
+    "EshaSalaah": {
+      "type": "date"
+    },
+    "JummahLecture": {
+      "type": "date"
+    },
+    "JummahKhutbah": {
+      "type": "date"
     }
   }
 }
