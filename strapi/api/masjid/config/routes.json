@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/masjids",
+      "handler": "Masjid.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/masjids/count",
+      "handler": "Masjid.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/masjids/:_id",
+      "handler": "Masjid.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/masjids",
+      "handler": "Masjid.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/masjids/:_id",
+      "handler": "Masjid.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/masjids/:_id",
+      "handler": "Masjid.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

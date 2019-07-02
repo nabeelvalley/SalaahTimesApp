@@ -1,0 +1,29 @@
+{
+  "connection": "default",
+  "collectionName": "masjid",
+  "info": {
+    "name": "masjid",
+    "description": ""
+  },
+  "options": {
+    "timestamps": [
+      "createdAt",
+      "updatedAt"
+    ]
+  },
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Address": {
+      "type": "string"
+    },
+    "area": {
+      "model": "area",
+      "via": "masjids"
+    },
+    "Suburb": {
+      "type": "string"
+    }
+  }
+}
