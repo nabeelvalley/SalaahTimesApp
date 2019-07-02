@@ -27,11 +27,11 @@ RUN npm run build
 # Assemble Production Image
 FROM node:10
 
-RUN yarn add strapi
+RUN npm i strapi
 
 WORKDIR /
 COPY --from=install-packages strapi/build build
 COPY --from=install-packages app/build build/public
 
 EXPOSE 3001
-CMD ["npm", "start"]
+CMD ["npm", "run", "strapi", "start"]
