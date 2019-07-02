@@ -1,14 +1,17 @@
 # Install Node Modules
-FROM node:12 as install-packages
+FROM node:10 as install-packages
 
 COPY app/package.json ./app/package.json
-COPY server/package.json ./server/package.json
+COPY strapi/package.json ./strapi/package.json
+RUN yarn global add strapi
 
 WORKDIR /app
 RUN yarn
 
-WORKDIR /server
+WORKDIR /strapi
 RUN yarn
+
+RUN yarn build
 
 WORKDIR /
 COPY app ./app
@@ -17,13 +20,13 @@ WORKDIR /app
 RUN yarn build
 
 # Build Production Image
-FROM node:12
+FROM node:10
+
+RUN yarn global add strapi
 
 WORKDIR /
-COPY --from=install-packages app/build ./app/build
-COPY --from=install-packages server ./server
-COPY server server
+COPY --from=install-packages strapi/build build
+COPY --from=install-packages app/build build/public
 
-WORKDIR /server
 EXPOSE 3001
-CMD ["node", "index.js"]
+CMD ["strapi", "start"]
