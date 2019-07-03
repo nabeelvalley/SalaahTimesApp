@@ -1,27 +1,12 @@
-# Install Node Modules
+# Build React
 FROM node:10 as install-packages
 
-COPY app/package.json ./app/package.json
-COPY strapi/package.json ./strapi/package.json
+COPY app/package.json ./package.json
 
-WORKDIR /app
 RUN npm i
 
-WORKDIR /strapi
-RUN npm i
+COPY app .
 
-# Build Strapi
-WORKDIR /
-COPY strapi ./strapi
-
-WORKDIR /strapi
-RUN npm run build
-
-# Build React
-WORKDIR /
-COPY app ./app
-
-WORKDIR /app
 RUN npm run build
 
 # Assemble Production Image
@@ -29,12 +14,15 @@ FROM node:10
 
 COPY strapi .
 RUN npm i
-
-WORKDIR /
-COPY --from=install-packages strapi/build build
-COPY --from=install-packages app/build build/public
-
 RUN npm i -g strapi
+
+RUN ls public
+
+COPY --from=install-packages build public
+
+RUN ls public
+
+RUN npm run build
 
 EXPOSE 3001
 CMD ["npm", "start"]
