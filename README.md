@@ -6,7 +6,7 @@
 2. Install the dependencies in the `app` and `strapi` directories with `yarn`
 3. Requires a Mongo Service to be running on `127.0.0.1:27017` (localhost)
 4. Run the frontend from the `app` directory with `yarn start`
-5. Run the strapi backend from the `strapi` directory with `yarn start`
+5. Run the strapi backend from the `strapi` directory with `yarn run develop`
 
 Once ready, run `npm run develop`
 
