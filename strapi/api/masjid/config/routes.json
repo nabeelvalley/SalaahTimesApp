@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/masjids/exporttext",
+      "handler": "Masjid.exportText",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/masjids/:_id",
       "handler": "Masjid.findOne",
       "config": {
