@@ -27,11 +27,14 @@ RUN npm run build
 # Assemble Production Image
 FROM node:10
 
-RUN npm i strapi
+COPY strapi .
+RUN npm i
 
 WORKDIR /
 COPY --from=install-packages strapi/build build
 COPY --from=install-packages app/build build/public
 
+RUN npm i -g strapi
+
 EXPOSE 3001
-CMD ["npm", "run", "strapi", "start"]
+CMD ["npm", "start"]
