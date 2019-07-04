@@ -57,7 +57,7 @@ class MasjidTimes extends Component {
             <div className='salaah'>Salaah: {selectedTimes.salaah}</div>
           ) : null}
           {!(selectedTimes.athaan || selectedTimes.salaah) ? (
-            <div className='salaah'>no jama'ah for {this.state.currentTab}</div>
+            <div className='salaah'>no times for {this.state.currentTab}</div>
           ) : null}
         </div>
       </div>
