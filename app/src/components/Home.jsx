@@ -16,6 +16,7 @@ class Home extends Component {
         var salaahTimes = json.map(masjid => ({
           name: masjid.Name,
           address: masjid.Address,
+          suburb: masjid.Suburb,
           fajr: {
             salaah: masjid.FajrSalaah
               ? this.getDisplayTime(masjid.FajrSalaah)
@@ -90,13 +91,17 @@ class Home extends Component {
         location.address
           .toLowerCase()
           .replace(/\ /g, '')
+          .includes(this.props.searchTerm.toLowerCase().replace(/\ /g, '')) ||
+        location.suburb
+          .toLowerCase()
+          .replace(/\ /g, '')
           .includes(this.props.searchTerm.toLowerCase().replace(/\ /g, ''))
     )
   }
 
   getDisplayTime = time => (time[0] == '0' ? time.slice(0) : time).toLowerCase()
 
-  normalizeTimes() {
+  getNormalizedTimes() {
     let times = {}
 
     if (this.state.localData && this.state.localData.timings) {
@@ -112,7 +117,7 @@ class Home extends Component {
 
   getCurrentSalaah() {
     let now = new Date()
-    let times = this.normalizeTimes()
+    let times = this.getNormalizedTimes()
     let currentSalaah = ''
 
     for (const salaah of ['fajr', 'zuhr', 'asr', 'maghrib', 'esha']) {
@@ -134,7 +139,7 @@ class Home extends Component {
 
   getNextSalaah() {
     let now = new Date()
-    let times = this.normalizeTimes()
+    let times = this.getNormalizedTimes()
     let nextSalaah = ''
 
     for (const salaah of ['fajr', 'zuhr', 'asr', 'maghrib', 'esha'].reverse()) {
@@ -156,8 +161,19 @@ class Home extends Component {
     return nextSalaah
   }
 
+  amPmConvert(time) {
+    const hours = time.split(':')[0]
+    const minutes = time.split(':')[1]
+
+    const newTime =
+      hours < 12
+        ? `${hours === 0 ? 12 : hours}:${minutes}am`
+        : `${hours - 12 === 0 ? 12 : hours - 12}:${minutes}pm`
+    return newTime
+  }
+
   getNextSalaahTime(nextSalaah) {
-    const times = this.normalizeTimes()
+    const times = this.getNormalizedTimes()
     let nextSalaahTime = ''
     if (times.hasOwnProperty(nextSalaah))
       nextSalaahTime = times[nextSalaah].slice(0, 5)
@@ -165,8 +181,7 @@ class Home extends Component {
   }
 
   render() {
-    const now = new Date()
-    const times = this.normalizeTimes()
+    const times = this.getNormalizedTimes()
     const currentSalaah = this.getCurrentSalaah()
     const nextSalaah = this.getNextSalaah()
 
@@ -176,6 +191,33 @@ class Home extends Component {
       <NextPrayer salaah={nextSalaah} time={nextSalaahTime} />
     ) : null
 
+    let yourLocation = times ? (
+      <MasjidTimes
+        key='yourLocationTimes'
+        details={{
+          name: 'Your Area',
+          fajr: {
+            salaah: times.fajr ? this.amPmConvert(times.fajr.slice(0, 5)) : ''
+          },
+          zuhr: {
+            salaah: times.zuhr ? this.amPmConvert(times.zuhr.slice(0, 5)) : ''
+          },
+          asr: {
+            salaah: times.asr ? this.amPmConvert(times.asr.slice(0, 5)) : ''
+          },
+          maghrib: {
+            salaah: times.maghrib
+              ? this.amPmConvert(times.maghrib.slice(0, 5))
+              : ''
+          },
+          esha: {
+            salaah: times.esha ? this.amPmConvert(times.esha.slice(0, 5)) : ''
+          }
+        }}
+        currentSalaah={currentSalaah}
+      />
+    ) : null
+
     let filteredTimes = this.filterLocations()
 
     let renderedTimes = filteredTimes.map((details, index) =>
@@ -183,15 +225,26 @@ class Home extends Component {
         <MasjidTimes
           key={index}
           details={details}
-          currentSalaah={currentSalaah || nextSalaah}
+          currentSalaah={currentSalaah}
         />
       ) : null
     )
 
     return (
       <div className='Home'>
-        {renderedNext}
+        {!this.props.searchTerm ? renderedNext : null}
+        {!this.props.searchTerm ? yourLocation : null}
         {renderedTimes}
+        <div className='notice'>
+          if you would like to add your times to this page please get in touch
+          with us on{' '}
+          <a
+            href='https://www.facebook.com/PtaMasaajidSalaahTimes'
+            target='_blank'
+          >
+            facebook
+          </a>
+        </div>
       </div>
     )
   }

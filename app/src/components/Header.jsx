@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 
 class Header extends Component {
+  copyTimesToClipboard() {
+    fetch('/masjids/export-text')
+      .then(res => res.text())
+      .then(text => navigator.clipboard.writeText(text))
+  }
+
   render() {
     return (
       <header className='Header' onClick={() => this.props.handleChange('')}>
-        <h1 className='title'>Salaah Times</h1>
+        <h1 className='title' onClick={this.copyTimesToClipboard}>
+          Salaah Times
+        </h1>
         <div className='search'>
           <form
             onSubmitCapture={e => {

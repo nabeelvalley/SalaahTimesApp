@@ -44,7 +44,10 @@ class MasjidTimes extends Component {
     return (
       <div className='MasjidTimes'>
         <div className='name'>{this.props.details.name}</div>
-        <div className='address'>{this.props.details.address}</div>
+        <div className='address'>
+          {this.props.details.address}
+          {this.props.details.suburb ? `, ${this.props.details.suburb}` : ''}
+        </div>
         <div className='pills'>{pills}</div>
         <div className='times'>
           {selectedTimes.athaan ? (
