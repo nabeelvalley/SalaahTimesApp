@@ -27,40 +27,74 @@
       "type": "string"
     },
     "FajrAthaan": {
-      "type": "date"
+      "minLength": 6,
+      "maxLength": 7,
+      "type": "string"
     },
     "FajrSalaah": {
-      "type": "date"
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
     },
     "ZuhrAthaan": {
-      "type": "date"
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
     },
     "ZuhrSalaah": {
-      "type": "date"
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
     },
     "AsrAthaan": {
-      "type": "date"
+      "maxLength": 6,
+      "minLength": 7,
+      "type": "string"
     },
     "AsrSalaah": {
-      "type": "date"
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
     },
     "MaghribAthaan": {
-      "type": "date"
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
     },
     "MaghribSalaah": {
-      "type": "date"
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
     },
     "EshaAthaan": {
-      "type": "date"
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
     },
     "EshaSalaah": {
-      "type": "date"
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
     },
-    "JummahLecture": {
-      "type": "date"
+    "JummahAthaan": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
     },
     "JummahKhutbah": {
-      "type": "date"
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "ZuhrAthaanWeekend": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "ZuhrSalaahWeekend": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
     }
   }
 }
