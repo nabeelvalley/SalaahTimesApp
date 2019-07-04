@@ -47,8 +47,8 @@
       "type": "string"
     },
     "AsrAthaan": {
-      "maxLength": 6,
-      "minLength": 7,
+      "maxLength": 7,
+      "minLength": 6,
       "type": "string"
     },
     "AsrSalaah": {
