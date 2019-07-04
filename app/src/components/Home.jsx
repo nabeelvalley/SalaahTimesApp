@@ -94,17 +94,7 @@ class Home extends Component {
     )
   }
 
-  getDisplayTime(dateString) {
-    var date = new Date(dateString)
-    var hours = date.getHours()
-    var minutes = date.getMinutes()
-    var ampm = hours >= 12 ? 'pm' : 'am'
-    hours = hours % 12
-    hours = hours ? hours : 12 // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0' + minutes : minutes
-    var strTime = hours + ':' + minutes + ' ' + ampm
-    return strTime
-  }
+  getDisplayTime = time => (time[0] == '0' ? time.slice(0) : time).toLowerCase()
 
   normalizeTimes() {
     let times = {}
@@ -193,7 +183,7 @@ class Home extends Component {
         <MasjidTimes
           key={index}
           details={details}
-          currentSalaah={currentSalaah}
+          currentSalaah={currentSalaah || nextSalaah}
         />
       ) : null
     )
