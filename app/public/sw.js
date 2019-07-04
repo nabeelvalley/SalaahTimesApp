@@ -14,7 +14,7 @@ if (workbox) {
       plugins: [
         new workbox.expiration.Plugin({
           maxEntries: 50,
-          maxAgeSeconds: 10 * 24 * 60 * 60 // 30 Days
+          maxAgeSeconds: 2 * 24 * 60 * 60 // 10 Days
         })
       ]
     })
@@ -27,7 +27,7 @@ if (workbox) {
       plugins: [
         new workbox.expiration.Plugin({
           maxEntries: 50,
-          maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+          maxAgeSeconds: 2 * 24 * 60 * 60 // 2 Days
         })
       ]
     })
@@ -40,7 +40,7 @@ if (workbox) {
       plugins: [
         new workbox.expiration.Plugin({
           maxEntries: 50,
-          maxAgeSeconds: 0.3 * 24 * 60 * 60
+          maxAgeSeconds: 0.3 * 24 * 60 * 60 // 0.3 days
         })
       ]
     })
