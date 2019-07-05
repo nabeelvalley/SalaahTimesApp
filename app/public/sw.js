@@ -7,48 +7,48 @@ if (workbox) {
 
   workbox.precaching.precacheAndRoute([])
 
-  workbox.routing.registerRoute(
-    /\//,
-    workbox.strategies.cacheFirst({
-      cacheName: 'home-cache',
-      plugins: [
-        new workbox.expiration.Plugin({
-          maxEntries: 50,
-          maxAgeSeconds: 2 * 24 * 60 * 60 // 10 Days
-        })
-      ]
-    })
-  )
+  // workbox.routing.registerRoute(
+  //   /\//,
+  //   workbox.strategies.staleWhileRevalidate({
+  //     cacheName: 'home-cache',
+  //     plugins: [
+  //       new workbox.expiration.Plugin({
+  //         maxEntries: 50,
+  //         maxAgeSeconds: 2 * 24 * 60 * 60 // 2 Days
+  //       })
+  //     ]
+  //   })
+  // )
 
-  workbox.routing.registerRoute(
-    /\.(?:ico|png|gif|jpg|js|css|html|svg)$/,
-    workbox.strategies.cacheFirst({
-      cacheName: 'static-cache',
-      plugins: [
-        new workbox.expiration.Plugin({
-          maxEntries: 50,
-          maxAgeSeconds: 2 * 24 * 60 * 60 // 2 Days
-        })
-      ]
-    })
-  )
+  // workbox.routing.registerRoute(
+  //   /\.(?:ico|png|gif|jpg|js|css|html|svg)$/,
+  //   workbox.strategies.staleWhileRevalidate({
+  //     cacheName: 'static-cache',
+  //     plugins: [
+  //       new workbox.expiration.Plugin({
+  //         maxEntries: 50,
+  //         maxAgeSeconds: 2 * 24 * 60 * 60 // 2 Days
+  //       })
+  //     ]
+  //   })
+  // )
 
-  workbox.routing.registerRoute(
-    /masjids.*/,
-    workbox.strategies.cacheFirst({
-      cacheName: 'times-cache',
-      plugins: [
-        new workbox.expiration.Plugin({
-          maxEntries: 50,
-          maxAgeSeconds: 0.3 * 24 * 60 * 60 // 0.3 days
-        })
-      ]
-    })
-  )
+  // workbox.routing.registerRoute(
+  //   /masjids.*/,
+  //   workbox.strategies.staleWhileRevalidate({
+  //     cacheName: 'times-cache',
+  //     plugins: [
+  //       new workbox.expiration.Plugin({
+  //         maxEntries: 50,
+  //         maxAgeSeconds: 0.3 * 24 * 60 * 60 // 0.3 days
+  //       })
+  //     ]
+  //   })
+  // )
 
   workbox.routing.registerRoute(
     /^https:\/\/api.aladhan.com/,
-    workbox.strategies.cacheFirst({
+    workbox.strategies.staleWhileRevalidate({
       cacheName: 'location-times-cache',
       plugins: [
         new workbox.expiration.Plugin({
@@ -86,3 +86,9 @@ if (workbox) {
 } else {
   console.log(`Boo! Workbox didn't load 😬`)
 }
+
+avigator.serviceWorker.getRegistrations().then(function (registrations) {
+  for (let registration of registrations) {
+    registration.unregister()
+  }
+})
