@@ -34,6 +34,10 @@ input {
   border: none;
 }
 
+.bold {
+  font-weight: 500;
+}
+
 /* Header */
 
 .Header {
@@ -182,6 +186,7 @@ input {
 
 .MasjidTimes > .pills {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .MasjidTimes > .pills .pill {
@@ -206,8 +211,8 @@ input {
   transition-timing-function: ease-in;
 }
 
-.MasjidTimes > .times,
-.MasjidTimes > .info {
+.MasjidTimes .times,
+.NoticeContent {
   margin-left: -20px;
   margin-right: -20px;
   padding-bottom: 15px;
@@ -215,22 +220,43 @@ input {
   background-color: var(--theme-primary);
 }
 
-.MasjidTimes > .times {
+.MasjidTimes .times {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   background-color: var(--theme-primary);
 }
 
-.MasjidTimes > .times *,
-.MasjidTimes > .info * {
+.MasjidTimes .times *,
+.MasjidTimes .jummah *,
+.NoticeContent * {
   color: var(--theme-light);
 }
 
-.MasjidTimes > .info {
+.MasjidTimes .times *,
+.MasjidTimes .jummah * {
+  color: var(--theme-light);
+}
+
+.MasjidTimes .title {
+  text-align: center;
+  background: var(--theme-primary);
+  color: var(--theme-light);
+}
+
+.MasjidTimes .jummah,
+.MasjidTimes .jummah > * {
+  margin-right: -10px;
+  margin-left: -10px;
+}
+
+.MasjidTimes .jummah .times {
+  padding-top: 5px;
+}
+
+/* Notice Content */
+
+.NoticeContent {
   display: block;
   padding: 20px;
-}
-
-.MasjidTimes > .times * {
-  color: var(--theme-light);
 }

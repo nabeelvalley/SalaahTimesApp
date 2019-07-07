@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import NoticeContent from './NoticeContent'
 
 class MasjidTimes extends Component {
   state = {
@@ -72,47 +73,35 @@ class MasjidTimes extends Component {
 
     if (selectedTimes.athaan || selectedTimes.salaah)
       text = (
-        <div className='times'>
-          {selectedTimes.athaan ? (
-            <div className='athaan'>Athaan: {selectedTimes.athaan}</div>
-          ) : null}
-          {selectedTimes.salaah ? (
-            <div className='salaah'>Salaah: {selectedTimes.salaah}</div>
-          ) : null}
-        </div>
-      )
-    else if (renderInfo)
-      text = (
-        <div className='info'>
-          {this.props.details.info.zuhrLabelSpecial &&
-          (this.props.details.info.zuhrAthaanSpecial ||
-            this.props.details.info.zuhrSalaahSpecial) ? (
-            <div>
-              {this.props.details.info.zuhrLabelSpecial ? (
-                <p>{'Zuhr ' + this.props.details.info.zuhrLabelSpecial}</p>
-              ) : null}
-              {this.props.details.info.zuhrAthaanSpecial ? (
-                <p>{'Athaan: ' + this.props.details.info.zuhrAthaanSpecial}</p>
-              ) : null}
-              {this.props.details.info.zuhrSalaahSpecial ? (
-                <p>{'Salaah: ' + this.props.details.info.zuhrSalaahSpecial}</p>
-              ) : null}
-              <br />
-              {this.props.details.info.notices
-                ? this.props.details.info.notices
-                    .split('\n')
-                    .map((line, index) =>
-                      line.length > 0 ? (
-                        <p key={index}>{line}</p>
-                      ) : (
-                        <br key={index} />
-                      )
-                    )
-                : null}
+        <div>
+          <div className='times'>
+            {selectedTimes.athaan ? (
+              <div className='athaan'>Athaan: {selectedTimes.athaan}</div>
+            ) : null}
+            {selectedTimes.salaah ? (
+              <div className='salaah'>Salaah: {selectedTimes.salaah}</div>
+            ) : null}
+          </div>
+          {selectedTimes.jummahAthaan || selectedTimes.jummahKhutbah ? (
+            <div className='jummah'>
+              <div className='title bold'>Jummah</div>
+              <div className='times'>
+                {selectedTimes.jummahAthaan ? (
+                  <div className='athaan'>
+                    Athaan: {selectedTimes.jummahAthaan}
+                  </div>
+                ) : null}
+                {selectedTimes.jummahKhutbah ? (
+                  <div className='salaah'>
+                    Khutbah: {selectedTimes.jummahKhutbah}
+                  </div>
+                ) : null}
+              </div>
             </div>
           ) : null}
         </div>
       )
+    else if (renderInfo) text = <NoticeContent info={this.props.details.info} />
     else
       text = (
         <div className='times'>
