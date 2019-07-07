@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 const NextPrayer = ({ salaah, time }) => (
   <div className='NextPrayer'>

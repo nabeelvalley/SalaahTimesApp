@@ -99,6 +99,10 @@ input {
   padding: 15px;
 }
 
+.Home .notice {
+  text-align: center;
+}
+
 @media (min-width: 400px) {
   .Home {
     display: flex;
@@ -202,14 +206,29 @@ input {
   transition-timing-function: ease-in;
 }
 
-.MasjidTimes > .times {
-  display: flex;
+.MasjidTimes > .times,
+.MasjidTimes > .info {
   margin-left: -20px;
   margin-right: -20px;
   padding-bottom: 15px;
-  justify-content: space-evenly;
   padding-top: 20px;
   background-color: var(--theme-primary);
+}
+
+.MasjidTimes > .times {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: var(--theme-primary);
+}
+
+.MasjidTimes > .times *,
+.MasjidTimes > .info * {
+  color: var(--theme-light);
+}
+
+.MasjidTimes > .info {
+  display: block;
+  padding: 20px;
 }
 
 .MasjidTimes > .times * {

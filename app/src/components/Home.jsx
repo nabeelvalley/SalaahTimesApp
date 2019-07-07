@@ -31,14 +31,7 @@ class Home extends Component {
               : '',
             athaan: masjid.ZuhrAthaan
               ? this.getDisplayTime(masjid.ZuhrAthaan)
-              : '',
-            salaahSpecial: masjid.ZuhrSalaahSpecial
-              ? this.getDisplayTime(masjid.ZuhrSalaahSpecial)
-              : '',
-            athaanSpecial: masjid.ZuhrAthaanSpecial
-              ? this.getDisplayTime(masjid.ZuhrAthaanSpecial)
-              : '',
-            labelSpecial: masjid.ZuhrLabelSpecial ? masjid.ZuhrLabelSpecial : ''
+              : ''
           },
           asr: {
             salaah: masjid.AsrSalaah
@@ -63,6 +56,16 @@ class Home extends Component {
             athaan: masjid.EshaAthaan
               ? this.getDisplayTime(masjid.EshaAthaan)
               : ''
+          },
+          info: {
+            notices: masjid.Notices || '',
+            zuhrSalaahSpecial: masjid.ZuhrSalaahSpecial
+              ? this.getDisplayTime(masjid.ZuhrSalaahSpecial)
+              : '',
+            zuhrAthaanSpecial: masjid.ZuhrAthaanSpecial
+              ? this.getDisplayTime(masjid.ZuhrAthaanSpecial)
+              : '',
+            zuhrLabelSpecial: masjid.ZuhrLabelSpecial || ''
           }
         }))
 
@@ -93,16 +96,16 @@ class Home extends Component {
       location =>
         location.name
           .toLowerCase()
-          .replace(/\ /g, '')
-          .includes(this.props.searchTerm.toLowerCase().replace(/\ /g, '')) ||
+          .replace(/ /g, '')
+          .includes(this.props.searchTerm.toLowerCase().replace(/ /g, '')) ||
         location.address
           .toLowerCase()
-          .replace(/\ /g, '')
-          .includes(this.props.searchTerm.toLowerCase().replace(/\ /g, '')) ||
+          .replace(/ /g, '')
+          .includes(this.props.searchTerm.toLowerCase().replace(/ /g, '')) ||
         location.suburb
           .toLowerCase()
-          .replace(/\ /g, '')
-          .includes(this.props.searchTerm.toLowerCase().replace(/\ /g, ''))
+          .replace(/ /g, '')
+          .includes(this.props.searchTerm.toLowerCase().replace(/ /g, ''))
     )
   }
 
@@ -253,6 +256,7 @@ class Home extends Component {
           <a
             href='https://www.facebook.com/PtaMasaajidSalaahTimes'
             target='_blank'
+            rel='noopener noreferrer'
           >
             facebook
           </a>
