@@ -103,7 +103,8 @@ input {
   padding: 15px;
 }
 
-.Home .notice {
+.Home .notice,
+.Home .error {
   text-align: center;
 }
 

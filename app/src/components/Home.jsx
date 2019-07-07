@@ -208,38 +208,36 @@ class Home extends Component {
 
     let nextSalaahTime = this.getNextSalaahTime(nextSalaah)
 
-    let renderedNext =
-      times && this.state.localData && this.state.localData.timings ? (
-        <NextPrayer salaah={nextSalaah} time={nextSalaahTime} />
-      ) : null
+    let renderedNext = times ? (
+      <NextPrayer salaah={nextSalaah} time={nextSalaahTime} />
+    ) : null
 
-    let yourLocation =
-      times && this.state.localData && this.state.localData.timings ? (
-        <MasjidTimes
-          key='yourLocationTimes'
-          details={{
-            name: 'Your Area',
-            fajr: {
-              salaah: times.fajr ? this.amPmConvert(times.fajr.slice(0, 5)) : ''
-            },
-            zuhr: {
-              salaah: times.zuhr ? this.amPmConvert(times.zuhr.slice(0, 5)) : ''
-            },
-            asr: {
-              salaah: times.asr ? this.amPmConvert(times.asr.slice(0, 5)) : ''
-            },
-            maghrib: {
-              salaah: times.maghrib
-                ? this.amPmConvert(times.maghrib.slice(0, 5))
-                : ''
-            },
-            esha: {
-              salaah: times.esha ? this.amPmConvert(times.esha.slice(0, 5)) : ''
-            }
-          }}
-          currentSalaah={currentSalaah}
-        />
-      ) : null
+    let yourLocation = times ? (
+      <MasjidTimes
+        key='yourLocationTimes'
+        details={{
+          name: 'Your Area',
+          fajr: {
+            salaah: times.fajr ? this.amPmConvert(times.fajr.slice(0, 5)) : ''
+          },
+          zuhr: {
+            salaah: times.zuhr ? this.amPmConvert(times.zuhr.slice(0, 5)) : ''
+          },
+          asr: {
+            salaah: times.asr ? this.amPmConvert(times.asr.slice(0, 5)) : ''
+          },
+          maghrib: {
+            salaah: times.maghrib
+              ? this.amPmConvert(times.maghrib.slice(0, 5))
+              : ''
+          },
+          esha: {
+            salaah: times.esha ? this.amPmConvert(times.esha.slice(0, 5)) : ''
+          }
+        }}
+        currentSalaah={currentSalaah}
+      />
+    ) : null
 
     let filteredTimes = this.filterLocations()
 
@@ -253,10 +251,15 @@ class Home extends Component {
       ) : null
     )
 
+    const showGeneralInfo =
+      !this.props.searchTerm &&
+      this.state.localData &&
+      this.state.localData.timings
+
     return (
       <div className='Home'>
-        {!this.props.searchTerm ? renderedNext : null}
-        {!this.props.searchTerm ? yourLocation : null}
+        {showGeneralInfo ? renderedNext : null}
+        {showGeneralInfo ? yourLocation : null}
         {renderedTimes}
         <div className='notice'>
           if you would like to add your times to this page please get in touch
