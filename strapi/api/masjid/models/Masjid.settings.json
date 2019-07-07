@@ -86,15 +86,21 @@
       "minLength": 6,
       "type": "string"
     },
-    "ZuhrAthaanWeekend": {
+    "ZuhrAthaanSpecial": {
       "maxLength": 7,
       "minLength": 6,
       "type": "string"
     },
-    "ZuhrSalaahWeekend": {
+    "ZuhrSalaahSpecial": {
       "maxLength": 7,
       "minLength": 6,
       "type": "string"
+    },
+    "ZuhrLabelSpecial": {
+      "type": "string"
+    },
+    "Notices": {
+      "type": "text"
     }
   }
 }
