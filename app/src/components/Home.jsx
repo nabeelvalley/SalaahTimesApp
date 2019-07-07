@@ -31,7 +31,14 @@ class Home extends Component {
               : '',
             athaan: masjid.ZuhrAthaan
               ? this.getDisplayTime(masjid.ZuhrAthaan)
-              : ''
+              : '',
+            salaahSpecial: masjid.ZuhrSalaahSpecial
+              ? this.getDisplayTime(masjid.ZuhrSalaahSpecial)
+              : '',
+            athaanSpecial: masjid.ZuhrAthaanSpecial
+              ? this.getDisplayTime(masjid.ZuhrAthaanSpecial)
+              : '',
+            labelSpecial: masjid.ZuhrLabelSpecial ? masjid.ZuhrLabelSpecial : ''
           },
           asr: {
             salaah: masjid.AsrSalaah
@@ -99,7 +106,11 @@ class Home extends Component {
     )
   }
 
-  getDisplayTime = time => (time[0] == '0' ? time.slice(0) : time).toLowerCase()
+  getDisplayTime = time => {
+    // debugger
+    const newTime = (time[0] === '0' ? time.slice(1) : time).toLowerCase()
+    return newTime
+  }
 
   getNormalizedTimes() {
     let times = {}
@@ -165,10 +176,11 @@ class Home extends Component {
     const hours = time.split(':')[0]
     const minutes = time.split(':')[1]
 
-    const newTime =
+    const convertedTime =
       hours < 12
         ? `${hours === 0 ? 12 : hours}:${minutes}am`
         : `${hours - 12 === 0 ? 12 : hours - 12}:${minutes}pm`
+    const newTime = this.getDisplayTime(convertedTime)
     return newTime
   }
 
