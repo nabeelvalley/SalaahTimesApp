@@ -108,6 +108,11 @@ input {
   text-align: center;
 }
 
+.Home .error {
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
 @media (min-width: 400px) {
   .Home {
     display: flex;
@@ -191,7 +196,7 @@ input {
 }
 
 .MasjidTimes > .pills .pill {
-  font-size: 12px;
+  font-size: 11px;
   padding: 1px 8px 1px 8px;
   border-radius: 9.6px;
   border: 1px solid var(--theme-dark);

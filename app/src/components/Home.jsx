@@ -251,15 +251,17 @@ class Home extends Component {
       ) : null
     )
 
-    const showGeneralInfo =
-      !this.props.searchTerm &&
-      this.state.localData &&
-      this.state.localData.timings
+    const showGeneralInfo = this.state.localData && this.state.localData.timings
 
     return (
       <div className='Home'>
-        {showGeneralInfo ? renderedNext : null}
-        {showGeneralInfo ? yourLocation : null}
+        {!this.props.searchTerm && showGeneralInfo ? renderedNext : null}
+        {!this.props.searchTerm && showGeneralInfo ? yourLocation : null}
+        {!this.props.searchTerm && !showGeneralInfo ? (
+          <div className='error bold'>
+            could not load times for your location, you may be offline
+          </div>
+        ) : null}
         {renderedTimes}
         <div className='notice'>
           if you would like to add your times to this page please get in touch
