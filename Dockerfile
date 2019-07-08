@@ -1,5 +1,5 @@
 # Build React
-FROM node:10 as install-packages
+FROM node:10 as install-packages-react
 
 COPY app/package.json ./package.json
 
@@ -9,18 +9,24 @@ COPY app .
 
 RUN npm run build
 
+# FROM node:10 as install-packages-strapi
+
+# COPY strapi/package.json ./package.json
+
+# RUN npm i -g strapi
+
 # Assemble Production Image
 FROM node:10
+# COPY --from=install-packages-strapi node_modules node_modules
+
+COPY strapi/package.json ./package.json
+
+RUN npm i
 
 COPY strapi .
-RUN npm i
-RUN npm i -g strapi
+COPY --from=install-packages-react build public
 
-RUN ls public
-
-COPY --from=install-packages build public
-
-RUN ls public
+COPY strapi .
 
 RUN npm run build
 
