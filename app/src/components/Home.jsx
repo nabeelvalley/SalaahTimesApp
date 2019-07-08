@@ -5,12 +5,16 @@ import MasjidTimes from './MasjidTimes'
 class Home extends Component {
   state = {
     salaahTimes: [],
-    localData: {}
+    localData: {},
+    isLoading: true
   }
 
   componentDidMount() {
     fetch('/masjids')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) console.log('failed to get times')
+        else return res.json()
+      })
       .then(json => {
         console.log(json)
         var salaahTimes = json.map(masjid => ({
@@ -77,6 +81,10 @@ class Home extends Component {
 
         this.setState({ ...this.state, salaahTimes })
       })
+      .catch(
+        err =>
+          console.log(err) || this.setState({ ...this.state, salaahTimes: [] })
+      )
 
     const now = new Date()
 
@@ -89,12 +97,20 @@ class Home extends Component {
         1}&year=${now.getFullYear}&school=1`,
       request
     )
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) this.setState({ ...this.state, isLoading: false })
+        else return res.json()
+      })
       .then(json => {
         let localData = json.data[now.getDate() - 1]
         console.log(localData)
-        this.setState({ ...this.state, localData })
+        this.setState({ ...this.state, localData, isLoading: false })
       })
+      .catch(
+        error =>
+          console.log(error) ||
+          this.setState({ ...this.state, isLoading: false })
+      )
   }
 
   filterLocations() {
@@ -216,7 +232,7 @@ class Home extends Component {
       <MasjidTimes
         key='yourLocationTimes'
         details={{
-          name: 'Your Area',
+          name: 'Pretoria',
           fajr: {
             salaah: times.fajr ? this.amPmConvert(times.fajr.slice(0, 5)) : ''
           },
@@ -253,14 +269,16 @@ class Home extends Component {
 
     const showGeneralInfo = this.state.localData && this.state.localData.timings
 
+    const errorText = this.state.isLoading
+      ? 'loading ...'
+      : 'could not load times for your location, you may be offline'
+
     return (
       <div className='Home'>
         {!this.props.searchTerm && showGeneralInfo ? renderedNext : null}
         {!this.props.searchTerm && showGeneralInfo ? yourLocation : null}
         {!this.props.searchTerm && !showGeneralInfo ? (
-          <div className='error bold'>
-            could not load times for your location, you may be offline
-          </div>
+          <div className='error bold'>{errorText}</div>
         ) : null}
         {renderedTimes}
         <div className='notice'>
