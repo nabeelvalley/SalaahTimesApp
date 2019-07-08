@@ -26,8 +26,6 @@ RUN npm i
 COPY strapi .
 COPY --from=install-packages-react build public
 
-COPY strapi .
-
 RUN npm run build
 
 EXPOSE 3001
