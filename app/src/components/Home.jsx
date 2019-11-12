@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NextPrayer from "./NextPrayer";
 import MasjidTimes from "./MasjidTimes";
 import { refreshCookie, doesBookmarkExist } from "../helpers/cookieManager";
+import FlipMove from "react-flip-move";
 
 class Home extends Component {
   state = {
@@ -295,7 +296,8 @@ class Home extends Component {
         {!this.props.searchTerm && !showGeneralInfo ? (
           <div className="error bold">{errorText}</div>
         ) : null}
-        {renderedTimes}
+
+        <FlipMove>{renderedTimes}</FlipMove>
         <div className="notice">
           if you would like to add your times to this page please get in touch
           with us on{" "}
