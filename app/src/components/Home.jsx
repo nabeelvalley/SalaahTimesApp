@@ -291,13 +291,15 @@ class Home extends Component {
 
     return (
       <div className="Home">
-        {!this.props.searchTerm && showGeneralInfo ? renderedNext : null}
-        {!this.props.searchTerm && showGeneralInfo ? yourLocation : null}
         {!this.props.searchTerm && !showGeneralInfo ? (
           <div className="error bold">{errorText}</div>
         ) : null}
 
-        <FlipMove>{renderedTimes}</FlipMove>
+        {!this.props.searchTerm && showGeneralInfo ? renderedNext : null}
+        <FlipMove style={{ width: "100%" }}>
+          {!this.props.searchTerm && showGeneralInfo ? yourLocation : null}
+          {renderedTimes}
+        </FlipMove>
         <div className="notice">
           if you would like to add your times to this page please get in touch
           with us on{" "}

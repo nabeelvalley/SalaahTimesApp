@@ -131,6 +131,9 @@ input {
 
 .NextPrayer,
 .MasjidTimes {
+  margin-right: auto;
+  margin-left: auto;
+
   border: var(--theme-secondary) solid 1px;
   margin-bottom: var(--card-space);
   box-shadow: var(--card-shadow);
@@ -201,7 +204,7 @@ input {
   border-radius: 9.6px;
   border: 1px solid var(--theme-dark);
   margin-top: 12px;
-  margin-right: 10px;
+  margin-right: 5px;
   margin-bottom: -9.6px;
   z-index: 10;
   background-color: var(--theme-light);
@@ -262,6 +265,8 @@ input {
 
 .MasjidTimes .badge {
   display: inline-block;
+  cursor: pointer;
+  user-select: none;
   --badge-size: 11px;
   height: var(--badge-size);
   width: var(--badge-size);
