@@ -122,11 +122,11 @@ class Home extends Component {
           .toLowerCase()
           .replace(/ /g, "")
           .includes(this.props.searchTerm.toLowerCase().replace(/ /g, "")) ||
-        location.address
+        (location.address || "")
           .toLowerCase()
           .replace(/ /g, "")
           .includes(this.props.searchTerm.toLowerCase().replace(/ /g, "")) ||
-        location.suburb
+        (location.suburb || "")
           .toLowerCase()
           .replace(/ /g, "")
           .includes(this.props.searchTerm.toLowerCase().replace(/ /g, ""))
