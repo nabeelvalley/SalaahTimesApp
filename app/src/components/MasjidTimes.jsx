@@ -1,26 +1,41 @@
-import React, { Component } from 'react'
-import NoticeContent from './NoticeContent'
+import React, { Component } from "react";
+import NoticeContent from "./NoticeContent";
+import {
+  addBookmark,
+  removeBookmark,
+  doesBookmarkExist,
+  toggleBookmark
+} from "../helpers/cookieManager";
 
 class MasjidTimes extends Component {
   state = {
-    currentTab: '',
+    currentTab: "",
     tabChanged: false
-  }
+  };
 
   constructor(props) {
-    super(props)
-    this.state.currentTab = props.currentSalaah
+    super(props);
+    this.state.currentTab = props.currentSalaah;
+    this.state.isBookmark = doesBookmarkExist(props.details.id);
   }
 
   static getDerivedStateFromProps(props, state) {
-    const currentTab = state.tabChanged ? state.currentTab : props.currentSalaah
-    return { ...state, currentTab, tabChanged: false }
+    const currentTab = state.tabChanged
+      ? state.currentTab
+      : props.currentSalaah;
+    return { ...state, currentTab, tabChanged: false };
+  }
+
+  toggleBookmark(id) {
+    toggleBookmark(id);
+    this.setState({ ...this.state, isBookmark: doesBookmarkExist(id) });
+    this.props.handleBookmarkChange(id);
   }
 
   render() {
-    const selectedTimes = this.props.details[this.state.currentTab]
+    const selectedTimes = this.props.details[this.state.currentTab];
 
-    const pills = ['fajr', 'zuhr', 'asr', 'maghrib', 'esha'].map(salaah =>
+    const pills = ["fajr", "zuhr", "asr", "maghrib", "esha"].map(salaah =>
       this.props.details[salaah] &&
       (this.props.details[salaah].salaah ||
         this.props.details[salaah].athaan) ? (
@@ -34,65 +49,65 @@ class MasjidTimes extends Component {
             })
           }
           className={
-            'pill ' + (this.state.currentTab === salaah ? '-selected' : '')
+            "pill " + (this.state.currentTab === salaah ? "-selected" : "")
           }
         >
           {salaah}
         </div>
       ) : null
-    )
+    );
 
     const renderInfo =
       this.props.details.info &&
       (this.props.details.info.notices ||
         ((this.props.details.info.zuhrSalaahSpecial ||
           this.props.details.info.zuhrAthaanSpecial) &&
-          this.props.details.info.zuhrLabelSpecial))
+          this.props.details.info.zuhrLabelSpecial));
 
     const info = renderInfo ? (
       <div
-        key='info'
+        key="info"
         onClick={() =>
           this.setState({
             ...this.state,
-            currentTab: 'info',
+            currentTab: "info",
             tabChanged: true
           })
         }
         className={
-          'pill ' + (this.state.currentTab === 'info' ? '-selected' : '')
+          "pill " + (this.state.currentTab === "info" ? "-selected" : "")
         }
       >
         i
       </div>
-    ) : null
+    ) : null;
 
-    pills.push(info)
+    pills.push(info);
 
-    let text
+    let text;
 
     if (selectedTimes.athaan || selectedTimes.salaah)
       text = (
         <div>
-          <div className='times'>
+          <div className="times">
             {selectedTimes.athaan ? (
-              <div className='athaan'>Athaan: {selectedTimes.athaan}</div>
+              <div className="athaan">Athaan: {selectedTimes.athaan}</div>
             ) : null}
             {selectedTimes.salaah ? (
-              <div className='salaah'>Salaah: {selectedTimes.salaah}</div>
+              <div className="salaah">Salaah: {selectedTimes.salaah}</div>
             ) : null}
           </div>
           {selectedTimes.jummahAthaan || selectedTimes.jummahKhutbah ? (
-            <div className='jummah'>
-              <div className='title bold'>Jummah</div>
-              <div className='times'>
+            <div className="jummah">
+              <div className="title bold">Jummah</div>
+              <div className="times">
                 {selectedTimes.jummahAthaan ? (
-                  <div className='athaan'>
+                  <div className="athaan">
                     Athaan: {selectedTimes.jummahAthaan}
                   </div>
                 ) : null}
                 {selectedTimes.jummahKhutbah ? (
-                  <div className='salaah'>
+                  <div className="salaah">
                     Khutbah: {selectedTimes.jummahKhutbah}
                   </div>
                 ) : null}
@@ -100,27 +115,45 @@ class MasjidTimes extends Component {
             </div>
           ) : null}
         </div>
-      )
-    else if (renderInfo) text = <NoticeContent info={this.props.details.info} />
+      );
+    else if (renderInfo)
+      text = <NoticeContent info={this.props.details.info} />;
     else
       text = (
-        <div className='times'>
-          <div className='salaah'>no times for {this.state.currentTab}</div>
+        <div className="times">
+          <div className="salaah">no times for {this.state.currentTab}</div>
         </div>
-      )
+      );
+
+    const location =
+      this.props.details.address && this.props.details.suburb
+        ? `${this.props.details.address}, ${this.props.details.suburb}`
+        : this.props.details.address
+        ? `${this.props.details.address}`
+        : this.props.details.suburb
+        ? `${this.props.details.suburb}`
+        : "";
+
+    const id = this.props.details.id;
 
     return (
-      <div className='MasjidTimes'>
-        <div className='name'>{this.props.details.name}</div>
-        <div className='address'>
-          {this.props.details.address}
-          {this.props.details.suburb ? `, ${this.props.details.suburb}` : ''}
+      <div className="MasjidTimes">
+        <div className="name">
+          {this.props.handleBookmarkChange ? (
+            <div
+              onClick={() => this.toggleBookmark(id)}
+              className={this.state.isBookmark ? "badge selected" : "badge"}
+            ></div>
+          ) : null}
+
+          {this.props.details.name}
         </div>
-        <div className='pills'>{pills}</div>
+        <div className="address">{location}</div>
+        <div className="pills">{pills}</div>
         {text}
       </div>
-    )
+    );
   }
 }
 
-export default MasjidTimes
+export default MasjidTimes;

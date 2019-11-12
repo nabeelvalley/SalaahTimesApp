@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,500&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,500&display=swap");
 
 :root {
   --theme-primary: #84c5ff;
@@ -24,7 +24,7 @@ p {
 }
 
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 300;
   font-size: 14px;
   color: var(--theme-dark);
@@ -258,6 +258,20 @@ input {
 
 .MasjidTimes .jummah .times {
   padding-top: 5px;
+}
+
+.MasjidTimes .badge {
+  display: inline-block;
+  --badge-size: 11px;
+  height: var(--badge-size);
+  width: var(--badge-size);
+  margin-right: 5px;
+  border-radius: 50%;
+  border: solid 1px var(--theme-secondary);
+}
+
+.MasjidTimes .badge.selected {
+  background-color: var(--theme-secondary);
 }
 
 /* Notice Content */

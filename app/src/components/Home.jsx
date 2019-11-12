@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NextPrayer from "./NextPrayer";
 import MasjidTimes from "./MasjidTimes";
+import { refreshCookie, doesBookmarkExist } from "../helpers/cookieManager";
 
 class Home extends Component {
   state = {
@@ -10,6 +11,7 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    refreshCookie();
     fetch("/masjids")
       .then(res => {
         if (!res.ok) console.log("failed to get times");
@@ -17,69 +19,69 @@ class Home extends Component {
       })
       .then(json => {
         console.log(json);
-        var salaahTimes = json
-          .sort((a, b) => (a.Name > b.Name ? 1 : -1))
-          .map(masjid => ({
-            name: masjid.Name,
-            address: masjid.Address,
-            suburb: masjid.Suburb,
-            fajr: {
-              salaah: masjid.FajrSalaah
-                ? this.getDisplayTime(masjid.FajrSalaah)
-                : "",
-              athaan: masjid.FajrAthaan
-                ? this.getDisplayTime(masjid.FajrAthaan)
-                : ""
-            },
-            zuhr: {
-              salaah: masjid.ZuhrSalaah
-                ? this.getDisplayTime(masjid.ZuhrSalaah)
-                : "",
-              athaan: masjid.ZuhrAthaan
-                ? this.getDisplayTime(masjid.ZuhrAthaan)
-                : "",
-              jummahAthaan: masjid.JummahAthaan
-                ? this.getDisplayTime(masjid.JummahAthaan)
-                : "",
-              jummahKhutbah: masjid.JummahKhutbah
-                ? this.getDisplayTime(masjid.JummahKhutbah)
-                : ""
-            },
-            asr: {
-              salaah: masjid.AsrSalaah
-                ? this.getDisplayTime(masjid.AsrSalaah)
-                : "",
-              athaan: masjid.AsrAthaan
-                ? this.getDisplayTime(masjid.AsrAthaan)
-                : ""
-            },
-            maghrib: {
-              salaah: masjid.MaghribSalaah
-                ? this.getDisplayTime(masjid.MaghribSalaah)
-                : "",
-              athaan: masjid.MaghribAthaan
-                ? this.getDisplayTime(masjid.MaghribAthaan)
-                : ""
-            },
-            esha: {
-              salaah: masjid.EshaSalaah
-                ? this.getDisplayTime(masjid.EshaSalaah)
-                : "",
-              athaan: masjid.EshaAthaan
-                ? this.getDisplayTime(masjid.EshaAthaan)
-                : ""
-            },
-            info: {
-              notices: masjid.Notices || "",
-              zuhrSalaahSpecial: masjid.ZuhrSalaahSpecial
-                ? this.getDisplayTime(masjid.ZuhrSalaahSpecial)
-                : "",
-              zuhrAthaanSpecial: masjid.ZuhrAthaanSpecial
-                ? this.getDisplayTime(masjid.ZuhrAthaanSpecial)
-                : "",
-              zuhrLabelSpecial: masjid.ZuhrLabelSpecial || ""
-            }
-          }));
+        var salaahTimes = json.map(masjid => ({
+          id: masjid.id,
+          isBookmark: doesBookmarkExist(masjid.id),
+          name: masjid.Name,
+          address: masjid.Address,
+          suburb: masjid.Suburb,
+          fajr: {
+            salaah: masjid.FajrSalaah
+              ? this.getDisplayTime(masjid.FajrSalaah)
+              : "",
+            athaan: masjid.FajrAthaan
+              ? this.getDisplayTime(masjid.FajrAthaan)
+              : ""
+          },
+          zuhr: {
+            salaah: masjid.ZuhrSalaah
+              ? this.getDisplayTime(masjid.ZuhrSalaah)
+              : "",
+            athaan: masjid.ZuhrAthaan
+              ? this.getDisplayTime(masjid.ZuhrAthaan)
+              : "",
+            jummahAthaan: masjid.JummahAthaan
+              ? this.getDisplayTime(masjid.JummahAthaan)
+              : "",
+            jummahKhutbah: masjid.JummahKhutbah
+              ? this.getDisplayTime(masjid.JummahKhutbah)
+              : ""
+          },
+          asr: {
+            salaah: masjid.AsrSalaah
+              ? this.getDisplayTime(masjid.AsrSalaah)
+              : "",
+            athaan: masjid.AsrAthaan
+              ? this.getDisplayTime(masjid.AsrAthaan)
+              : ""
+          },
+          maghrib: {
+            salaah: masjid.MaghribSalaah
+              ? this.getDisplayTime(masjid.MaghribSalaah)
+              : "",
+            athaan: masjid.MaghribAthaan
+              ? this.getDisplayTime(masjid.MaghribAthaan)
+              : ""
+          },
+          esha: {
+            salaah: masjid.EshaSalaah
+              ? this.getDisplayTime(masjid.EshaSalaah)
+              : "",
+            athaan: masjid.EshaAthaan
+              ? this.getDisplayTime(masjid.EshaAthaan)
+              : ""
+          },
+          info: {
+            notices: masjid.Notices || "",
+            zuhrSalaahSpecial: masjid.ZuhrSalaahSpecial
+              ? this.getDisplayTime(masjid.ZuhrSalaahSpecial)
+              : "",
+            zuhrAthaanSpecial: masjid.ZuhrAthaanSpecial
+              ? this.getDisplayTime(masjid.ZuhrAthaanSpecial)
+              : "",
+            zuhrLabelSpecial: masjid.ZuhrLabelSpecial || ""
+          }
+        }));
 
         this.setState({ ...this.state, salaahTimes });
       })
@@ -219,6 +221,12 @@ class Home extends Component {
     return nextSalaahTime;
   }
 
+  updateBookmarkStatus = id => {
+    let times = this.state.salaahTimes;
+    times.find(el => el.id === id).isBookmark = doesBookmarkExist(id);
+    this.setState({ ...this.state, salaahTimes: times });
+  };
+
   render() {
     const times = this.getNormalizedTimes();
     const currentSalaah = this.getCurrentSalaah();
@@ -259,15 +267,19 @@ class Home extends Component {
 
     let filteredTimes = this.filterLocations();
 
-    let renderedTimes = filteredTimes.map((details, index) =>
-      currentSalaah && details ? (
-        <MasjidTimes
-          key={index}
-          details={details}
-          currentSalaah={currentSalaah}
-        />
-      ) : null
-    );
+    let renderedTimes = filteredTimes
+      .sort((a, b) => (a.name < b.name ? 1 : -1))
+      .sort((a, b) => (a.isBookmark < b.isBookmark ? 1 : -1))
+      .map((details, index) =>
+        currentSalaah && details ? (
+          <MasjidTimes
+            key={details.id}
+            details={details}
+            currentSalaah={currentSalaah}
+            handleBookmarkChange={this.updateBookmarkStatus}
+          />
+        ) : null
+      );
 
     const showGeneralInfo =
       this.state.localData && this.state.localData.timings;
