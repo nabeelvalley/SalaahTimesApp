@@ -1,96 +1,98 @@
-import React, { Component } from 'react'
-import NextPrayer from './NextPrayer'
-import MasjidTimes from './MasjidTimes'
+import React, { Component } from "react";
+import NextPrayer from "./NextPrayer";
+import MasjidTimes from "./MasjidTimes";
 
 class Home extends Component {
   state = {
     salaahTimes: [],
     localData: {},
     isLoading: true
-  }
+  };
 
   componentDidMount() {
-    fetch('/masjids')
+    fetch("/masjids")
       .then(res => {
-        if (!res.ok) console.log('failed to get times')
-        else return res.json()
+        if (!res.ok) console.log("failed to get times");
+        else return res.json();
       })
       .then(json => {
-        console.log(json)
-        var salaahTimes = json.map(masjid => ({
-          name: masjid.Name,
-          address: masjid.Address,
-          suburb: masjid.Suburb,
-          fajr: {
-            salaah: masjid.FajrSalaah
-              ? this.getDisplayTime(masjid.FajrSalaah)
-              : '',
-            athaan: masjid.FajrAthaan
-              ? this.getDisplayTime(masjid.FajrAthaan)
-              : ''
-          },
-          zuhr: {
-            salaah: masjid.ZuhrSalaah
-              ? this.getDisplayTime(masjid.ZuhrSalaah)
-              : '',
-            athaan: masjid.ZuhrAthaan
-              ? this.getDisplayTime(masjid.ZuhrAthaan)
-              : '',
-            jummahAthaan: masjid.JummahAthaan
-              ? this.getDisplayTime(masjid.JummahAthaan)
-              : '',
-            jummahKhutbah: masjid.JummahKhutbah
-              ? this.getDisplayTime(masjid.JummahKhutbah)
-              : ''
-          },
-          asr: {
-            salaah: masjid.AsrSalaah
-              ? this.getDisplayTime(masjid.AsrSalaah)
-              : '',
-            athaan: masjid.AsrAthaan
-              ? this.getDisplayTime(masjid.AsrAthaan)
-              : ''
-          },
-          maghrib: {
-            salaah: masjid.MaghribSalaah
-              ? this.getDisplayTime(masjid.MaghribSalaah)
-              : '',
-            athaan: masjid.MaghribAthaan
-              ? this.getDisplayTime(masjid.MaghribAthaan)
-              : ''
-          },
-          esha: {
-            salaah: masjid.EshaSalaah
-              ? this.getDisplayTime(masjid.EshaSalaah)
-              : '',
-            athaan: masjid.EshaAthaan
-              ? this.getDisplayTime(masjid.EshaAthaan)
-              : ''
-          },
-          info: {
-            notices: masjid.Notices || '',
-            zuhrSalaahSpecial: masjid.ZuhrSalaahSpecial
-              ? this.getDisplayTime(masjid.ZuhrSalaahSpecial)
-              : '',
-            zuhrAthaanSpecial: masjid.ZuhrAthaanSpecial
-              ? this.getDisplayTime(masjid.ZuhrAthaanSpecial)
-              : '',
-            zuhrLabelSpecial: masjid.ZuhrLabelSpecial || ''
-          }
-        }))
+        console.log(json);
+        var salaahTimes = json
+          .sort((a, b) => (a.Name > b.Name ? 1 : -1))
+          .map(masjid => ({
+            name: masjid.Name,
+            address: masjid.Address,
+            suburb: masjid.Suburb,
+            fajr: {
+              salaah: masjid.FajrSalaah
+                ? this.getDisplayTime(masjid.FajrSalaah)
+                : "",
+              athaan: masjid.FajrAthaan
+                ? this.getDisplayTime(masjid.FajrAthaan)
+                : ""
+            },
+            zuhr: {
+              salaah: masjid.ZuhrSalaah
+                ? this.getDisplayTime(masjid.ZuhrSalaah)
+                : "",
+              athaan: masjid.ZuhrAthaan
+                ? this.getDisplayTime(masjid.ZuhrAthaan)
+                : "",
+              jummahAthaan: masjid.JummahAthaan
+                ? this.getDisplayTime(masjid.JummahAthaan)
+                : "",
+              jummahKhutbah: masjid.JummahKhutbah
+                ? this.getDisplayTime(masjid.JummahKhutbah)
+                : ""
+            },
+            asr: {
+              salaah: masjid.AsrSalaah
+                ? this.getDisplayTime(masjid.AsrSalaah)
+                : "",
+              athaan: masjid.AsrAthaan
+                ? this.getDisplayTime(masjid.AsrAthaan)
+                : ""
+            },
+            maghrib: {
+              salaah: masjid.MaghribSalaah
+                ? this.getDisplayTime(masjid.MaghribSalaah)
+                : "",
+              athaan: masjid.MaghribAthaan
+                ? this.getDisplayTime(masjid.MaghribAthaan)
+                : ""
+            },
+            esha: {
+              salaah: masjid.EshaSalaah
+                ? this.getDisplayTime(masjid.EshaSalaah)
+                : "",
+              athaan: masjid.EshaAthaan
+                ? this.getDisplayTime(masjid.EshaAthaan)
+                : ""
+            },
+            info: {
+              notices: masjid.Notices || "",
+              zuhrSalaahSpecial: masjid.ZuhrSalaahSpecial
+                ? this.getDisplayTime(masjid.ZuhrSalaahSpecial)
+                : "",
+              zuhrAthaanSpecial: masjid.ZuhrAthaanSpecial
+                ? this.getDisplayTime(masjid.ZuhrAthaanSpecial)
+                : "",
+              zuhrLabelSpecial: masjid.ZuhrLabelSpecial || ""
+            }
+          }));
 
-        this.setState({ ...this.state, salaahTimes })
+        this.setState({ ...this.state, salaahTimes });
       })
       .catch(
         err =>
           console.log(err) || this.setState({ ...this.state, salaahTimes: [] })
-      )
+      );
 
-    const now = new Date()
+    const now = new Date();
 
     const request = new Request({
-      method: 'POST'
-    })
+      method: "POST"
+    });
 
     fetch(
       `https://api.aladhan.com/v1/calendarByCity?city=Pretoria&country=SouthAfrica&month=${now.getMonth() +
@@ -98,19 +100,19 @@ class Home extends Component {
       request
     )
       .then(res => {
-        if (!res.ok) this.setState({ ...this.state, isLoading: false })
-        else return res.json()
+        if (!res.ok) this.setState({ ...this.state, isLoading: false });
+        else return res.json();
       })
       .then(json => {
-        let localData = json.data[now.getDate() - 1]
-        console.log(localData)
-        this.setState({ ...this.state, localData, isLoading: false })
+        let localData = json.data[now.getDate() - 1];
+        console.log(localData);
+        this.setState({ ...this.state, localData, isLoading: false });
       })
       .catch(
         error =>
           console.log(error) ||
           this.setState({ ...this.state, isLoading: false })
-      )
+      );
   }
 
   filterLocations() {
@@ -118,144 +120,144 @@ class Home extends Component {
       location =>
         location.name
           .toLowerCase()
-          .replace(/ /g, '')
-          .includes(this.props.searchTerm.toLowerCase().replace(/ /g, '')) ||
+          .replace(/ /g, "")
+          .includes(this.props.searchTerm.toLowerCase().replace(/ /g, "")) ||
         location.address
           .toLowerCase()
-          .replace(/ /g, '')
-          .includes(this.props.searchTerm.toLowerCase().replace(/ /g, '')) ||
+          .replace(/ /g, "")
+          .includes(this.props.searchTerm.toLowerCase().replace(/ /g, "")) ||
         location.suburb
           .toLowerCase()
-          .replace(/ /g, '')
-          .includes(this.props.searchTerm.toLowerCase().replace(/ /g, ''))
-    )
+          .replace(/ /g, "")
+          .includes(this.props.searchTerm.toLowerCase().replace(/ /g, ""))
+    );
   }
 
   getDisplayTime = time => {
     // debugger
-    const newTime = (time[0] === '0' ? time.slice(1) : time).toLowerCase()
-    return newTime
-  }
+    const newTime = (time[0] === "0" ? time.slice(1) : time).toLowerCase();
+    return newTime;
+  };
 
   getNormalizedTimes() {
-    let times = {}
+    let times = {};
 
     if (this.state.localData && this.state.localData.timings) {
-      times.fajr = this.state.localData.timings.Fajr
-      times.zuhr = this.state.localData.timings.Dhuhr
-      times.asr = this.state.localData.timings.Asr
-      times.maghrib = this.state.localData.timings.Maghrib
-      times.esha = this.state.localData.timings.Isha
+      times.fajr = this.state.localData.timings.Fajr;
+      times.zuhr = this.state.localData.timings.Dhuhr;
+      times.asr = this.state.localData.timings.Asr;
+      times.maghrib = this.state.localData.timings.Maghrib;
+      times.esha = this.state.localData.timings.Isha;
     }
 
-    return times
+    return times;
   }
 
   getCurrentSalaah() {
-    let now = new Date()
-    let times = this.getNormalizedTimes()
-    let currentSalaah = ''
+    let now = new Date();
+    let times = this.getNormalizedTimes();
+    let currentSalaah = "";
 
-    for (const salaah of ['fajr', 'zuhr', 'asr', 'maghrib', 'esha']) {
+    for (const salaah of ["fajr", "zuhr", "asr", "maghrib", "esha"]) {
       if (times.hasOwnProperty(salaah)) {
-        const time = times[salaah].slice(0, 5)
+        const time = times[salaah].slice(0, 5);
         let salaahTime = new Date(
           `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()} ${time}`
-        )
+        );
 
         if (now.getTime() > salaahTime.getTime()) {
-          currentSalaah = salaah
+          currentSalaah = salaah;
         }
       }
     }
 
-    if (!currentSalaah) currentSalaah = 'fajr'
-    return currentSalaah
+    if (!currentSalaah) currentSalaah = "fajr";
+    return currentSalaah;
   }
 
   getNextSalaah() {
-    let now = new Date()
-    let times = this.getNormalizedTimes()
-    let nextSalaah = ''
+    let now = new Date();
+    let times = this.getNormalizedTimes();
+    let nextSalaah = "";
 
-    for (const salaah of ['fajr', 'zuhr', 'asr', 'maghrib', 'esha'].reverse()) {
+    for (const salaah of ["fajr", "zuhr", "asr", "maghrib", "esha"].reverse()) {
       if (times.hasOwnProperty(salaah)) {
-        const time = times[salaah].slice(0, 5)
+        const time = times[salaah].slice(0, 5);
         let salaahTime = new Date(
           `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()} ${time}`
-        )
+        );
 
         if (salaahTime.getTime() < now.getTime()) {
-          break
+          break;
         } else {
-          nextSalaah = salaah
+          nextSalaah = salaah;
         }
       }
     }
 
-    if (!nextSalaah) nextSalaah = 'fajr'
-    return nextSalaah
+    if (!nextSalaah) nextSalaah = "fajr";
+    return nextSalaah;
   }
 
   amPmConvert(time) {
-    const hours = time.split(':')[0]
-    const minutes = time.split(':')[1]
+    const hours = time.split(":")[0];
+    const minutes = time.split(":")[1];
 
     const convertedTime =
       hours < 12
         ? `${hours === 0 ? 12 : hours}:${minutes}am`
-        : `${hours - 12 === 0 ? 12 : hours - 12}:${minutes}pm`
-    const newTime = this.getDisplayTime(convertedTime)
-    return newTime
+        : `${hours - 12 === 0 ? 12 : hours - 12}:${minutes}pm`;
+    const newTime = this.getDisplayTime(convertedTime);
+    return newTime;
   }
 
   getNextSalaahTime(nextSalaah) {
-    const times = this.getNormalizedTimes()
-    let nextSalaahTime = ''
+    const times = this.getNormalizedTimes();
+    let nextSalaahTime = "";
     if (times.hasOwnProperty(nextSalaah))
-      nextSalaahTime = times[nextSalaah].slice(0, 5)
-    return nextSalaahTime
+      nextSalaahTime = times[nextSalaah].slice(0, 5);
+    return nextSalaahTime;
   }
 
   render() {
-    const times = this.getNormalizedTimes()
-    const currentSalaah = this.getCurrentSalaah()
-    const nextSalaah = this.getNextSalaah()
+    const times = this.getNormalizedTimes();
+    const currentSalaah = this.getCurrentSalaah();
+    const nextSalaah = this.getNextSalaah();
 
-    let nextSalaahTime = this.getNextSalaahTime(nextSalaah)
+    let nextSalaahTime = this.getNextSalaahTime(nextSalaah);
 
     let renderedNext = times ? (
       <NextPrayer salaah={nextSalaah} time={nextSalaahTime} />
-    ) : null
+    ) : null;
 
     let yourLocation = times ? (
       <MasjidTimes
-        key='yourLocationTimes'
+        key="yourLocationTimes"
         details={{
-          name: 'Pretoria',
+          name: "Pretoria",
           fajr: {
-            salaah: times.fajr ? this.amPmConvert(times.fajr.slice(0, 5)) : ''
+            salaah: times.fajr ? this.amPmConvert(times.fajr.slice(0, 5)) : ""
           },
           zuhr: {
-            salaah: times.zuhr ? this.amPmConvert(times.zuhr.slice(0, 5)) : ''
+            salaah: times.zuhr ? this.amPmConvert(times.zuhr.slice(0, 5)) : ""
           },
           asr: {
-            salaah: times.asr ? this.amPmConvert(times.asr.slice(0, 5)) : ''
+            salaah: times.asr ? this.amPmConvert(times.asr.slice(0, 5)) : ""
           },
           maghrib: {
             salaah: times.maghrib
               ? this.amPmConvert(times.maghrib.slice(0, 5))
-              : ''
+              : ""
           },
           esha: {
-            salaah: times.esha ? this.amPmConvert(times.esha.slice(0, 5)) : ''
+            salaah: times.esha ? this.amPmConvert(times.esha.slice(0, 5)) : ""
           }
         }}
         currentSalaah={currentSalaah}
       />
-    ) : null
+    ) : null;
 
-    let filteredTimes = this.filterLocations()
+    let filteredTimes = this.filterLocations();
 
     let renderedTimes = filteredTimes.map((details, index) =>
       currentSalaah && details ? (
@@ -265,36 +267,37 @@ class Home extends Component {
           currentSalaah={currentSalaah}
         />
       ) : null
-    )
+    );
 
-    const showGeneralInfo = this.state.localData && this.state.localData.timings
+    const showGeneralInfo =
+      this.state.localData && this.state.localData.timings;
 
     const errorText = this.state.isLoading
-      ? 'loading ...'
-      : 'could not load times for your location, you may be offline'
+      ? "loading ..."
+      : "could not load times for your location, you may be offline";
 
     return (
-      <div className='Home'>
+      <div className="Home">
         {!this.props.searchTerm && showGeneralInfo ? renderedNext : null}
         {!this.props.searchTerm && showGeneralInfo ? yourLocation : null}
         {!this.props.searchTerm && !showGeneralInfo ? (
-          <div className='error bold'>{errorText}</div>
+          <div className="error bold">{errorText}</div>
         ) : null}
         {renderedTimes}
-        <div className='notice'>
+        <div className="notice">
           if you would like to add your times to this page please get in touch
-          with us on{' '}
+          with us on{" "}
           <a
-            href='https://www.facebook.com/PtaMasaajidSalaahTimes'
-            target='_blank'
-            rel='noopener noreferrer'
+            href="https://www.facebook.com/PtaMasaajidSalaahTimes"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             facebook
           </a>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Home
+export default Home;
