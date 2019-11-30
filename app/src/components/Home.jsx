@@ -99,7 +99,7 @@ class Home extends Component {
 
     fetch(
       `https://api.aladhan.com/v1/calendarByCity?city=Pretoria&country=SouthAfrica&month=${now.getMonth() +
-        1}&year=${now.getFullYear}&school=1&tune=0,-13,0,0,0,0,0,10`,
+      1}&year=${now.getFullYear}&school=1&tune=0,-13,0,0,0,0,0,10`,
       request
     )
       .then(res => {
@@ -296,7 +296,7 @@ class Home extends Component {
         ) : null}
 
         {!this.props.searchTerm && showGeneralInfo ? renderedNext : null}
-        <FlipMove style={{ width: "100%" }}>
+        <FlipMove style={{ width: "100%" }} enterAnimation="fade" leaveAnimation="fade">
           {!this.props.searchTerm && showGeneralInfo ? yourLocation : null}
           {renderedTimes}
         </FlipMove>
