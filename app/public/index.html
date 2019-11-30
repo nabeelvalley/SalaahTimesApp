@@ -5,11 +5,18 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149902632-2"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+    // disable GA for localhost
+    var host = window.location.hostname;
+    if (host === 'localhost' || host.includes('192.168')) {
+      window['ga-disable-UA-149902632-2'] = true;
+      console.log('disable GA for local')
+    } else {
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
 
-    gtag('config', 'UA-149902632-2');
+      gtag('config', 'UA-149902632-2');
+    }
   </script>
 
   <base href="" />
