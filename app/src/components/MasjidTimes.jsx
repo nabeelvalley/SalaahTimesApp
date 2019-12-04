@@ -4,6 +4,7 @@ import {
   doesBookmarkExist,
   toggleBookmark
 } from "../helpers/cookieManager";
+import { createEvent } from '../helpers/trackingHelper';
 
 class MasjidTimes extends Component {
   state = {
@@ -139,7 +140,7 @@ class MasjidTimes extends Component {
         <div className="name">
           {this.props.handleBookmarkChange ? (
             <div
-              onClick={() => this.toggleBookmark(id)}
+              onClick={() => createEvent('bookmarkClick', 'bookmarkToggle', 'click') || this.toggleBookmark(id)}
               className={this.state.isBookmark ? "badge selected" : "badge"}
             ></div>
           ) : null}

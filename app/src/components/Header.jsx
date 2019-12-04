@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { createEvent } from "../helpers/trackingHelper";
 
 class Header extends Component {
   copyTimesToClipboard() {
@@ -15,6 +16,7 @@ class Header extends Component {
         </h1>
         <div className='search'>
           <form
+            onClick={() => createEvent('searchClick', 'searchForm', 'click')}
             onSubmitCapture={e => {
               e.preventDefault()
               document.activeElement.blur()
