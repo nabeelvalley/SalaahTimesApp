@@ -37,24 +37,24 @@ class MasjidTimes extends Component {
 
     const pills = ["fajr", "zuhr", "asr", "maghrib", "esha"].map(salaah =>
       this.props.details[salaah] &&
-      (this.props.details[salaah].salaah ||
-        this.props.details[salaah].athaan) ? (
-        <div
-          key={salaah}
-          onClick={() =>
-            this.setState({
-              ...this.state,
-              currentTab: salaah,
-              tabChanged: true
-            })
-          }
-          className={
-            "pill " + (this.state.currentTab === salaah ? "-selected" : "")
-          }
-        >
-          {salaah}
-        </div>
-      ) : null
+        (this.props.details[salaah].salaah ||
+          this.props.details[salaah].athaan) ? (
+          <div
+            key={salaah}
+            onClick={() =>
+              this.setState({
+                ...this.state,
+                currentTab: salaah,
+                tabChanged: true
+              })
+            }
+            className={
+              "pill " + (this.state.currentTab === salaah ? "-selected" : "")
+            }
+          >
+            {salaah}
+          </div>
+        ) : null
     );
 
     const renderInfo =
@@ -129,10 +129,10 @@ class MasjidTimes extends Component {
       this.props.details.address && this.props.details.suburb
         ? `${this.props.details.address}, ${this.props.details.suburb}`
         : this.props.details.address
-        ? `${this.props.details.address}`
-        : this.props.details.suburb
-        ? `${this.props.details.suburb}`
-        : "";
+          ? `${this.props.details.address}`
+          : this.props.details.suburb
+            ? `${this.props.details.suburb}`
+            : "";
 
     const id = this.props.details.id;
 

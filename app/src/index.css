@@ -267,16 +267,19 @@ input {
   display: inline-block;
   cursor: pointer;
   user-select: none;
-  --badge-size: 11px;
+  --badge-size: 19px;
+  margin-bottom: -1px;
   height: var(--badge-size);
   width: var(--badge-size);
   margin-right: 5px;
-  border-radius: 50%;
-  border: solid 1px var(--theme-secondary);
+  content: url(images/StarOutline.svg);
+  /* border-radius: 50%;
+  border: solid 1px var(--theme-secondary); */
 }
 
 .MasjidTimes .badge.selected {
-  background-color: var(--theme-secondary);
+  content: url(images/StarFilled.svg);
+  /* background-color: var(--theme-secondary); */
 }
 
 /* Notice Content */
