@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import NoticeContent from "./NoticeContent";
 import {
-  addBookmark,
-  removeBookmark,
   doesBookmarkExist,
   toggleBookmark
 } from "../helpers/cookieManager";

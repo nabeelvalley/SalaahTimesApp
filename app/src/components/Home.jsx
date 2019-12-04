@@ -3,6 +3,7 @@ import NextPrayer from "./NextPrayer";
 import MasjidTimes from "./MasjidTimes";
 import { refreshCookie, doesBookmarkExist } from "../helpers/cookieManager";
 import FlipMove from "react-flip-move";
+import Policies from './Policies';
 
 class Home extends Component {
   state = {
@@ -300,17 +301,7 @@ class Home extends Component {
           {!this.props.searchTerm && showGeneralInfo ? yourLocation : null}
           {renderedTimes}
         </FlipMove>
-        <div className="notice">
-          if you would like to add your times to this page please get in touch
-          with us on{" "}
-          <a
-            href="https://www.facebook.com/PtaMasaajidSalaahTimes"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            facebook
-          </a>
-        </div>
+        <Policies />
       </div>
     );
   }

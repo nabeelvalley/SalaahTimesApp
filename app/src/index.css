@@ -103,7 +103,6 @@ input {
   padding: 15px;
 }
 
-.Home .notice,
 .Home .error {
   text-align: center;
 }
@@ -287,4 +286,18 @@ input {
 .NoticeContent {
   display: block;
   padding: 20px;
+}
+
+/* Policies */
+.Policies {
+  text-align: center;
+  text-transform: lowercase;
+}
+
+.Policies > * {
+  padding-bottom: 5px;
+}
+
+.Policies .policy a {
+  margin: 0 5px;
 }
