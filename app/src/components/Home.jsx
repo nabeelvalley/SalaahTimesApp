@@ -9,12 +9,13 @@ class Home extends Component {
   state = {
     salaahTimes: [],
     localData: {},
-    isLoading: true
+    isLoading: true,
+    lastUpdated: ''
   };
 
   componentDidMount() {
     refreshCookie();
-    fetch("/masjids")
+    fetch("/masjids", { cache: 'no-cache' })
       .then(res => {
         if (!res.ok) console.log("failed to get times");
         else return res.json();
@@ -85,7 +86,10 @@ class Home extends Component {
           }
         }));
 
-        this.setState({ ...this.state, salaahTimes });
+        const now = new Date()
+        const lastUpdated = now.toLocaleTimeString()
+
+        this.setState({ ...this.state, salaahTimes, lastUpdated });
       })
       .catch(
         err =>
@@ -267,10 +271,12 @@ class Home extends Component {
       />
     ) : null;
 
-    let filteredTimes = this.filterLocations();
+    const filteredTimes = this.filterLocations();
 
-    let renderedTimes = filteredTimes
-      .sort((a, b) => (a.name < b.name ? 1 : -1))
+    const formatNameForSearch = (name) => name.toLowerCase().replace('masjid ', '')
+
+    const renderedTimes = filteredTimes
+      .sort((a, b) => (formatNameForSearch(a.name) < formatNameForSearch(b.name) ? 1 : -1))
       .sort((a, b) => (a.isBookmark < b.isBookmark ? 1 : -1))
       .map((details, index) =>
         currentSalaah && details ? (
@@ -292,9 +298,16 @@ class Home extends Component {
 
     return (
       <div className="Home">
-        {!this.props.searchTerm && !showGeneralInfo ? (
-          <div className="error bold">{errorText}</div>
-        ) : null}
+        {
+          this.state.lastUpdated
+            ? <div className="info">last updated at {this.state.lastUpdated}</div>
+            : null
+        }
+        {
+          !this.props.searchTerm && !showGeneralInfo
+            ? <div className="error bold">{errorText}</div>
+            : null
+        }
 
         {!this.props.searchTerm && showGeneralInfo ? renderedNext : null}
         <FlipMove style={{ width: "100%" }} enterAnimation="fade" leaveAnimation="fade">
