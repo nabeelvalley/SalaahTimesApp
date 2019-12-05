@@ -108,6 +108,10 @@ input {
   text-align: center;
 }
 
+.Home .info {
+  margin-bottom: 10px;
+}
+
 .Home .error {
   padding-bottom: 20px;
   padding-top: 10px;
