@@ -1,9 +1,13 @@
 var dataLayer = window.dataLayer || []
 
 const createEvent = (name, element, action, metaData = {}) => {
-    dataLayer.push({
-        ...metaData, event: name, element, action
-    })
+    try {
+        dataLayer.push({
+            ...metaData, event: name, element, action
+        })
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 export { createEvent }
