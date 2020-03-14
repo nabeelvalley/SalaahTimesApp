@@ -75,12 +75,14 @@ Strapi is deployed as a Node.js application to Heroku, in order to set up the ap
 1. `heroku login`
 2. `heroku git:remote -a salaah-times-backend`
 3. Run the `heroku-deploy.ps1` script to deploy the application
-
-> You will also need to ensure the  `DATABASE_URI` environment variable is set to your MongoDB Connection string
+4. You will also need to configure the following:
+   1. `NODE_ENV` - This should be set to `development` so Gatsby can infer the schema during build
+   2. `DATABASE_URI` - MongoDB connection string
+   3. `MASJID_CHANGE_WEBHOOK` - Webhook to trigger frontend build
 
 ### App
 
-The frontend application is deployed as a Gatsby site to Netlify, this will automatically deploy when the application is pused, however a deploy will also be triggered when Strapi is updated via the Strapi Webhook functionality (in progress)
+The frontend application is deployed as a Gatsby site to Netlify, this will automatically deploy when the application is pused, however a deploy will also be triggered when Strapi is updated via the Strapi Webhook functionality
 
 The frontend application requires the `STRAPI_BASE_URL` to be set as an environment variable **without the trailing `/`**
 
