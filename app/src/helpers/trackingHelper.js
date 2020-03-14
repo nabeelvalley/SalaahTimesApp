@@ -1,4 +1,6 @@
-var dataLayer = window.dataLayer || []
+const isBrowser = typeof window !== `undefined`
+
+var dataLayer = isBrowser ? window.dataLayer || [] : []
 
 const createEvent = (name, element, action, metaData = {}) => {
     try {
