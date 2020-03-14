@@ -15,88 +15,13 @@ class Home extends Component {
 
   componentDidMount() {
     refreshCookie();
-    fetch("/masjids", { cache: 'no-cache' })
-      .then(res => {
-        if (!res.ok) console.log("failed to get times");
-        else return res.json();
-      })
-      .then(json => {
-        console.log(json);
-        var salaahTimes = json.map(masjid => ({
-          id: masjid.id,
-          isBookmark: doesBookmarkExist(masjid.id),
-          name: masjid.Name,
-          address: masjid.Address,
-          suburb: masjid.Suburb,
-          fajr: {
-            salaah: masjid.FajrSalaah
-              ? this.getDisplayTime(masjid.FajrSalaah)
-              : "",
-            athaan: masjid.FajrAthaan
-              ? this.getDisplayTime(masjid.FajrAthaan)
-              : ""
-          },
-          zuhr: {
-            salaah: masjid.ZuhrSalaah
-              ? this.getDisplayTime(masjid.ZuhrSalaah)
-              : "",
-            athaan: masjid.ZuhrAthaan
-              ? this.getDisplayTime(masjid.ZuhrAthaan)
-              : "",
-            jummahAthaan: masjid.JummahAthaan
-              ? this.getDisplayTime(masjid.JummahAthaan)
-              : "",
-            jummahKhutbah: masjid.JummahKhutbah
-              ? this.getDisplayTime(masjid.JummahKhutbah)
-              : ""
-          },
-          asr: {
-            salaah: masjid.AsrSalaah
-              ? this.getDisplayTime(masjid.AsrSalaah)
-              : "",
-            athaan: masjid.AsrAthaan
-              ? this.getDisplayTime(masjid.AsrAthaan)
-              : ""
-          },
-          maghrib: {
-            salaah: masjid.MaghribSalaah
-              ? this.getDisplayTime(masjid.MaghribSalaah)
-              : "",
-            athaan: masjid.MaghribAthaan
-              ? this.getDisplayTime(masjid.MaghribAthaan)
-              : ""
-          },
-          esha: {
-            salaah: masjid.EshaSalaah
-              ? this.getDisplayTime(masjid.EshaSalaah)
-              : "",
-            athaan: masjid.EshaAthaan
-              ? this.getDisplayTime(masjid.EshaAthaan)
-              : ""
-          },
-          info: {
-            notices: masjid.Notices || "",
-            zuhrSalaahSpecial: masjid.ZuhrSalaahSpecial
-              ? this.getDisplayTime(masjid.ZuhrSalaahSpecial)
-              : "",
-            zuhrAthaanSpecial: masjid.ZuhrAthaanSpecial
-              ? this.getDisplayTime(masjid.ZuhrAthaanSpecial)
-              : "",
-            zuhrLabelSpecial: masjid.ZuhrLabelSpecial || ""
-          }
-        }));
-
-        const now = new Date()
-        const lastUpdated = now.toLocaleTimeString()
-
-        this.setState({ ...this.state, salaahTimes, lastUpdated });
-      })
-      .catch(
-        err =>
-          console.log(err) || this.setState({ ...this.state, salaahTimes: [] })
-      );
-
+    var salaahTimes = this.props.data.map(this.convertMasjidData);
     const now = new Date();
+
+    const lastUpdated = now.toLocaleTimeString()
+
+    this.setState({ ...this.state, salaahTimes, lastUpdated });
+
 
     const request = new Request({
       method: "POST"
@@ -122,6 +47,73 @@ class Home extends Component {
           this.setState({ ...this.state, isLoading: false })
       );
   }
+
+  convertMasjidData = (masjid) => {
+    return {
+      id: masjid.id,
+      isBookmark: doesBookmarkExist(masjid.id),
+      name: masjid.Name,
+      address: masjid.Address,
+      suburb: masjid.Suburb,
+      fajr: {
+        salaah: masjid.FajrSalaah
+          ? this.getDisplayTime(masjid.FajrSalaah)
+          : "",
+        athaan: masjid.FajrAthaan
+          ? this.getDisplayTime(masjid.FajrAthaan)
+          : ""
+      },
+      zuhr: {
+        salaah: masjid.ZuhrSalaah
+          ? this.getDisplayTime(masjid.ZuhrSalaah)
+          : "",
+        athaan: masjid.ZuhrAthaan
+          ? this.getDisplayTime(masjid.ZuhrAthaan)
+          : "",
+        jummahAthaan: masjid.JummahAthaan
+          ? this.getDisplayTime(masjid.JummahAthaan)
+          : "",
+        jummahKhutbah: masjid.JummahKhutbah
+          ? this.getDisplayTime(masjid.JummahKhutbah)
+          : ""
+      },
+      asr: {
+        salaah: masjid.AsrSalaah
+          ? this.getDisplayTime(masjid.AsrSalaah)
+          : "",
+        athaan: masjid.AsrAthaan
+          ? this.getDisplayTime(masjid.AsrAthaan)
+          : ""
+      },
+      maghrib: {
+        salaah: masjid.MaghribSalaah
+          ? this.getDisplayTime(masjid.MaghribSalaah)
+          : "",
+        athaan: masjid.MaghribAthaan
+          ? this.getDisplayTime(masjid.MaghribAthaan)
+          : ""
+      },
+      esha: {
+        salaah: masjid.EshaSalaah
+          ? this.getDisplayTime(masjid.EshaSalaah)
+          : "",
+        athaan: masjid.EshaAthaan
+          ? this.getDisplayTime(masjid.EshaAthaan)
+          : ""
+      },
+      info: {
+        notices: masjid.Notices || "",
+        zuhrSalaahSpecial: masjid.ZuhrSalaahSpecial
+          ? this.getDisplayTime(masjid.ZuhrSalaahSpecial)
+          : "",
+        zuhrAthaanSpecial: masjid.ZuhrAthaanSpecial
+          ? this.getDisplayTime(masjid.ZuhrAthaanSpecial)
+          : "",
+        zuhrLabelSpecial: masjid.ZuhrLabelSpecial || ""
+      }
+    }
+  }
+
 
   filterLocations() {
     return this.state.salaahTimes.filter(
