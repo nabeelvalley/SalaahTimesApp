@@ -68,39 +68,21 @@ If you want to export these times as a text format, this can be done by clicking
 
 ## Deployment
 
-I'm deploying the app as a Docker Container as this seems to be the only method that reliably works everywhere (every other way is too platform specific)
+### Strapi
 
-I'm using Heroku currently, and the deployment process is as follows:
+Strapi is deployed as a Node.js application to Heroku, in order to set up the application you will need to do the following from the repository root directory:
 
-1. Build the docker image from the directory
+1. `heroku login`
+2. `heroku git:remote -a salaah-times-backend`
+3. Run the `heroku-deploy.ps1` script to deploy the application
 
-```bash
-docker build -t salaah-times .
-```
+> You will also need to ensure the  `DATABASE_URI` environment variable is set to your MongoDB Connection string
 
-2. Log in to Heroku
+### App
 
-```bash
-heroku login
-```
+The frontend application is deployed as a Gatsby site to Netlify, this will automatically deploy when the application is pused, however a deploy will also be triggered when Strapi is updated via the Strapi Webhook functionality (in progress)
 
-3. Log in to the Container Registry
-
-```bash
-heroku container:login
-```
-
-4. Push the image, note that the `web` refers to the runner and not the app name
-
-```bash
-heroku container:push web
-```
-
-5. Deploy the image
-
-```bash
-heroku container:release web
-```
+The frontend application requires the `STRAPI_BASE_URL` to be set as an environment variable **without the trailing `/`**
 
 ## Resources
 
