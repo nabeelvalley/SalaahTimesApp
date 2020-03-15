@@ -139,7 +139,7 @@
       "sizes": "70x70"
     }
   ],
-  "start_url": "https://salaah-times.herokuapp.com",
+  "start_url": "https://salaah-times.netlify.com",
   "display": "standalone",
   "theme_color": "#84c5ff",
   "background_color": "#84c5ff"
