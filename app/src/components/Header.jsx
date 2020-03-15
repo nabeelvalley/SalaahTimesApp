@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { createEvent } from "../helpers/trackingHelper";
 
 class Header extends Component {
-  copyTimesToClipboard() {
-    fetch('/masjids/export-text')
+  copyTimesToClipboard = () => {
+    fetch(this.props.exportEndpoint)
       .then(res => res.text())
       .then(text => navigator.clipboard.writeText(text))
   }

@@ -6,6 +6,9 @@ console.log('Strapi Base URL:', strapiBaseUrl)
 
 
 module.exports = {
+    siteMetadata: {
+      exportTimesEndpoint: `${strapiBaseUrl}/masjids/export-text`
+    },
     plugins: [
         {
             resolve: 'gatsby-source-graphql',

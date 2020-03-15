@@ -23,6 +23,7 @@ class Index extends Component {
         <Header
           searchTerm={this.state.searchTerm}
           handleChange={this.handleSearch}
+          exportEndpoint={this.props.data.site.siteMetadata.exportTimesEndpoint}
         />
         <Home data={this.props.data.strapi.masjids} searchTerm={this.state.searchTerm} />
       </div>
@@ -34,40 +35,44 @@ export default Index
 
 export const query = graphql`
 query AllMasjidData {
-    strapi {
-      masjids {
-        Address
-        AsrAthaan
-        AsrSalaah
-        EshaAthaan
-        EshaSalaah
-        FajrAthaan
-        FajrSalaah
-        JummahAthaan
-        JummahKhutbah
-        MaghribAthaan
-        MaghribSalaah
+  site {
+    siteMetadata {
+      exportTimesEndpoint
+    }
+  }
+  strapi {
+    masjids {
+      Address
+      AsrAthaan
+      AsrSalaah
+      EshaAthaan
+      EshaSalaah
+      FajrAthaan
+      FajrSalaah
+      JummahAthaan
+      JummahKhutbah
+      MaghribAthaan
+      MaghribSalaah
+      Name
+      Notices
+      Suburb
+      ZuhrAthaanSpecial
+      ZuhrAthaan
+      ZuhrLabelSpecial
+      ZuhrSalaah
+      ZuhrSalaahSpecial
+      id
+      updatedAt
+      _id
+      createdAt
+      area {
         Name
-        Notices
-        Suburb
-        ZuhrAthaanSpecial
-        ZuhrAthaan
-        ZuhrLabelSpecial
-        ZuhrSalaah
-        ZuhrSalaahSpecial
-        id
-        updatedAt
         _id
         createdAt
-        area {
-          Name
-          _id
-          createdAt
-          id
-          updatedAt
-        }
+        id
+        updatedAt
       }
     }
   }
-  
+}  
 `
