@@ -1,4 +1,18 @@
 'use strict';
+const axios = require('axios')
+
+const webhookUrl = process.env.MASJID_CHANGE_WEBHOOK
+
+const sendNotification = async () => {
+  if (webhookUrl) {
+    try {
+      await axios.post(webhookUrl, {})
+      console.log("Webhook triggered")
+    } catch {
+      console.error("Error triggering webhook")
+    }
+  }
+}
 
 /**
  * Lifecycle callbacks for the `Masjid` model.
@@ -13,7 +27,11 @@ module.exports = {
 
   // After saving a value.
   // Fired after an `insert` or `update` query.
-  // afterSave: async (model, result) => {},
+  afterSave: async (model, result) => {
+    console.log('Send Masjid Webhook Notification to ', webhookUrl)
+    const webhookResult = await sendNotification()
+    console.log('Webhook Response ', webhookResult)
+  },
 
   // Before fetching all values.
   // Fired before a `fetchAll` operation.
