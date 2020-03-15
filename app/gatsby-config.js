@@ -18,11 +18,6 @@ module.exports = {
                 url: `${strapiBaseUrl}/graphql`,
             }
         },
-        {
-            resolve: 'gatsby-plugin-offline',
-            options: {
-                appendScript: resolve('src/serviceWorker.js'),
-            },
-        },
+        'gatsby-plugin-offline',
     ]
 }
