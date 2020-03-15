@@ -203,6 +203,7 @@ input {
 }
 
 .MasjidTimes > .pills .pill {
+  cursor: pointer;
   font-size: 11px;
   padding: 1px 8px 1px 8px;
   border-radius: 9.6px;
