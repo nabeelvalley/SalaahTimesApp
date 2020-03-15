@@ -1,1 +1,2 @@
-git subtree push --prefix strapi heroku master
+git subtree push --prefix strapi origin strapi
+git subtree push --prefix redirect origin redirect
