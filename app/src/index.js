@@ -25,7 +25,7 @@ export default function HTML(props) {
 
         <base href="" />
         <meta charSet="utf-8" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/icons/favicon.ico" />
         <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120x120.png" />
         <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-touch-icon-144x144-precomposed.png" />
         <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-touch-icon-144x144.png" />
