@@ -107,6 +107,8 @@ coverage
 # Strapi
 ############################
 
-exports
 .cache
 build
+
+# GraphQL Schema, normally ignored
+# exports 
