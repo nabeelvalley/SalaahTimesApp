@@ -1,3 +1,7 @@
-# Strapi application
+# Salaah Times Strapi
 
-A quick description of your strapi application
+Strapi Repo for the Salaah Times App Backend.
+
+> Requires a Mongo Service to be running on localhost
+
+Once ready, run `yarn run develop`
