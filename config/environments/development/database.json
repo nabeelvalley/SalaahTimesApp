@@ -4,12 +4,9 @@
     "default": {
       "connector": "mongoose",
       "settings": {
-        "database": "backend",
-        "host": "127.0.0.1",
-        "srv": false,
-        "port": 27017,
-        "username": "",
-        "password": ""
+        "client": "mongo",
+        "uri": "${process.env.DATABASE_URI || 'mongodb://127.0.0.1:27017/'}",
+        "database": "${process.env.DATABASE_NAME || 'salaah-times-backend'}"
       },
       "options": {
         "authenticationDatabase": ""

@@ -1,0 +1,110 @@
+{
+  "kind": "collectionType",
+  "connection": "default",
+  "collectionName": "masjid",
+  "info": {
+    "name": "masjid",
+    "description": ""
+  },
+  "options": {
+    "timestamps": [
+      "createdAt",
+      "updatedAt"
+    ]
+  },
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "Address": {
+      "type": "string"
+    },
+    "area": {
+      "model": "area",
+      "via": "masjids"
+    },
+    "Suburb": {
+      "type": "string"
+    },
+    "FajrAthaan": {
+      "minLength": 6,
+      "maxLength": 7,
+      "type": "string"
+    },
+    "FajrSalaah": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "ZuhrAthaan": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "ZuhrSalaah": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "AsrAthaan": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "AsrSalaah": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "MaghribAthaan": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "MaghribSalaah": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "EshaAthaan": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "EshaSalaah": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "JummahAthaan": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "JummahKhutbah": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "ZuhrAthaanSpecial": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "ZuhrSalaahSpecial": {
+      "maxLength": 7,
+      "minLength": 6,
+      "type": "string"
+    },
+    "ZuhrLabelSpecial": {
+      "type": "string"
+    },
+    "Notices": {
+      "type": "text"
+    },
+    "PlusCode": {
+      "type": "string"
+    }
+  }
+}
