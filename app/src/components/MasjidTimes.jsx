@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import NoticeContent from "./NoticeContent";
-import {
-  doesBookmarkExist,
-  toggleBookmark
-} from "../helpers/cookieManager";
-import { createEvent } from '../helpers/trackingHelper';
+import { doesBookmarkExist, toggleBookmark } from "../helpers/cookieManager";
+import { createEvent } from "../helpers/trackingHelper";
 
 class MasjidTimes extends Component {
   state = {
     currentTab: "",
-    tabChanged: false
+    tabChanged: false,
   };
 
   constructor(props) {
@@ -34,26 +31,26 @@ class MasjidTimes extends Component {
   render() {
     const selectedTimes = this.props.details[this.state.currentTab];
 
-    const pills = ["fajr", "zuhr", "asr", "maghrib", "esha"].map(salaah =>
+    const pills = ["fajr", "zuhr", "asr", "maghrib", "esha"].map((salaah) =>
       this.props.details[salaah] &&
-        (this.props.details[salaah].salaah ||
-          this.props.details[salaah].athaan) ? (
-          <div
-            key={salaah}
-            onClick={() =>
-              this.setState({
-                ...this.state,
-                currentTab: salaah,
-                tabChanged: true
-              })
-            }
-            className={
-              "pill " + (this.state.currentTab === salaah ? "-selected" : "")
-            }
-          >
-            {salaah}
-          </div>
-        ) : null
+      (this.props.details[salaah].salaah ||
+        this.props.details[salaah].athaan) ? (
+        <div
+          key={salaah}
+          onClick={() =>
+            this.setState({
+              ...this.state,
+              currentTab: salaah,
+              tabChanged: true,
+            })
+          }
+          className={
+            "pill " + (this.state.currentTab === salaah ? "-selected" : "")
+          }
+        >
+          {salaah}
+        </div>
+      ) : null
     );
 
     const renderInfo =
@@ -70,7 +67,7 @@ class MasjidTimes extends Component {
           this.setState({
             ...this.state,
             currentTab: "info",
-            tabChanged: true
+            tabChanged: true,
           })
         }
         className={
@@ -128,10 +125,12 @@ class MasjidTimes extends Component {
       this.props.details.address && this.props.details.suburb
         ? `${this.props.details.address}, ${this.props.details.suburb}`
         : this.props.details.address
-          ? `${this.props.details.address}`
-          : this.props.details.suburb
-            ? `${this.props.details.suburb}`
-            : "";
+        ? `${this.props.details.address}`
+        : this.props.details.suburb
+        ? `${this.props.details.suburb}`
+        : "";
+
+    const link = this.props.details.link;
 
     const id = this.props.details.id;
 
@@ -140,14 +139,25 @@ class MasjidTimes extends Component {
         <div className="name">
           {this.props.handleBookmarkChange ? (
             <div
-              onClick={() => createEvent('bookmarkClick', 'bookmarkToggle', 'click') || this.toggleBookmark(id)}
+              onClick={() =>
+                createEvent("bookmarkClick", "bookmarkToggle", "click") ||
+                this.toggleBookmark(id)
+              }
               className={this.state.isBookmark ? "badge selected" : "badge"}
             ></div>
           ) : null}
 
           {this.props.details.name}
         </div>
-        <div className="address">{location}</div>
+        {link ? (
+          <div className="address">
+            <a href={link} target="_blank" rel="noopener noreferrer">
+              {location}
+            </a>
+          </div>
+        ) : (
+          <div className="address">{location}</div>
+        )}
         <div className="pills">{pills}</div>
         {text}
       </div>

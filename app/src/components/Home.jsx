@@ -3,14 +3,14 @@ import NextPrayer from "./NextPrayer";
 import MasjidTimes from "./MasjidTimes";
 import { refreshCookie, doesBookmarkExist } from "../helpers/cookieManager";
 import FlipMove from "react-flip-move";
-import Policies from './Policies';
+import Policies from "./Policies";
 
 class Home extends Component {
   state = {
     salaahTimes: [],
     localData: {},
     isLoading: true,
-    lastUpdated: ''
+    lastUpdated: "",
   };
 
   componentDidMount() {
@@ -18,31 +18,31 @@ class Home extends Component {
     var salaahTimes = this.props.data.map(this.convertMasjidData);
     const now = new Date();
 
-    const lastUpdated = now.toLocaleTimeString()
+    const lastUpdated = now.toLocaleTimeString();
 
     this.setState({ ...this.state, salaahTimes, lastUpdated });
 
-
     const request = new Request({
-      method: "POST"
+      method: "POST",
     });
 
     fetch(
-      `https://api.aladhan.com/v1/calendarByCity?city=Pretoria&country=SouthAfrica&month=${now.getMonth() +
-      1}&year=${now.getFullYear}&school=1&tune=0,-13,0,0,0,0,0,10`,
+      `https://api.aladhan.com/v1/calendarByCity?city=Pretoria&country=SouthAfrica&month=${
+        now.getMonth() + 1
+      }&year=${now.getFullYear}&school=1&tune=0,-13,0,0,0,0,0,10`,
       request
     )
-      .then(res => {
+      .then((res) => {
         if (!res.ok) this.setState({ ...this.state, isLoading: false });
         else return res.json();
       })
-      .then(json => {
+      .then((json) => {
         let localData = json.data[now.getDate() - 1];
         console.log(localData);
         this.setState({ ...this.state, localData, isLoading: false });
       })
       .catch(
-        error =>
+        (error) =>
           console.log(error) ||
           this.setState({ ...this.state, isLoading: false })
       );
@@ -56,34 +56,22 @@ class Home extends Component {
       address: masjid.Address,
       suburb: masjid.Suburb,
       fajr: {
-        salaah: masjid.FajrSalaah
-          ? this.getDisplayTime(masjid.FajrSalaah)
-          : "",
-        athaan: masjid.FajrAthaan
-          ? this.getDisplayTime(masjid.FajrAthaan)
-          : ""
+        salaah: masjid.FajrSalaah ? this.getDisplayTime(masjid.FajrSalaah) : "",
+        athaan: masjid.FajrAthaan ? this.getDisplayTime(masjid.FajrAthaan) : "",
       },
       zuhr: {
-        salaah: masjid.ZuhrSalaah
-          ? this.getDisplayTime(masjid.ZuhrSalaah)
-          : "",
-        athaan: masjid.ZuhrAthaan
-          ? this.getDisplayTime(masjid.ZuhrAthaan)
-          : "",
+        salaah: masjid.ZuhrSalaah ? this.getDisplayTime(masjid.ZuhrSalaah) : "",
+        athaan: masjid.ZuhrAthaan ? this.getDisplayTime(masjid.ZuhrAthaan) : "",
         jummahAthaan: masjid.JummahAthaan
           ? this.getDisplayTime(masjid.JummahAthaan)
           : "",
         jummahKhutbah: masjid.JummahKhutbah
           ? this.getDisplayTime(masjid.JummahKhutbah)
-          : ""
+          : "",
       },
       asr: {
-        salaah: masjid.AsrSalaah
-          ? this.getDisplayTime(masjid.AsrSalaah)
-          : "",
-        athaan: masjid.AsrAthaan
-          ? this.getDisplayTime(masjid.AsrAthaan)
-          : ""
+        salaah: masjid.AsrSalaah ? this.getDisplayTime(masjid.AsrSalaah) : "",
+        athaan: masjid.AsrAthaan ? this.getDisplayTime(masjid.AsrAthaan) : "",
       },
       maghrib: {
         salaah: masjid.MaghribSalaah
@@ -91,15 +79,11 @@ class Home extends Component {
           : "",
         athaan: masjid.MaghribAthaan
           ? this.getDisplayTime(masjid.MaghribAthaan)
-          : ""
+          : "",
       },
       esha: {
-        salaah: masjid.EshaSalaah
-          ? this.getDisplayTime(masjid.EshaSalaah)
-          : "",
-        athaan: masjid.EshaAthaan
-          ? this.getDisplayTime(masjid.EshaAthaan)
-          : ""
+        salaah: masjid.EshaSalaah ? this.getDisplayTime(masjid.EshaSalaah) : "",
+        athaan: masjid.EshaAthaan ? this.getDisplayTime(masjid.EshaAthaan) : "",
       },
       info: {
         notices: masjid.Notices || "",
@@ -109,15 +93,15 @@ class Home extends Component {
         zuhrAthaanSpecial: masjid.ZuhrAthaanSpecial
           ? this.getDisplayTime(masjid.ZuhrAthaanSpecial)
           : "",
-        zuhrLabelSpecial: masjid.ZuhrLabelSpecial || ""
-      }
-    }
-  }
-
+        zuhrLabelSpecial: masjid.ZuhrLabelSpecial || "",
+      },
+      link: this.getMapsLink(masjid.PlusCode),
+    };
+  };
 
   filterLocations() {
     return this.state.salaahTimes.filter(
-      location =>
+      (location) =>
         location.name
           .toLowerCase()
           .replace(/ /g, "")
@@ -133,10 +117,21 @@ class Home extends Component {
     );
   }
 
-  getDisplayTime = time => {
-    // debugger
+  getDisplayTime = (time) => {
     const newTime = (time[0] === "0" ? time.slice(1) : time).toLowerCase();
     return newTime;
+  };
+
+  getMapsLink = (plusCode = "") => {
+    const trimmed = plusCode.trim();
+    if (!trimmed) {
+      return undefined;
+    }
+
+    const encoded = encodeURIComponent(trimmed || "");
+    const link = "https://www.google.com/maps/dir//" + encoded;
+
+    return link;
   };
 
   getNormalizedTimes() {
@@ -219,9 +214,9 @@ class Home extends Component {
     return nextSalaahTime;
   }
 
-  updateBookmarkStatus = id => {
+  updateBookmarkStatus = (id) => {
     let times = this.state.salaahTimes;
-    times.find(el => el.id === id).isBookmark = doesBookmarkExist(id);
+    times.find((el) => el.id === id).isBookmark = doesBookmarkExist(id);
     this.setState({ ...this.state, salaahTimes: times });
   };
 
@@ -242,22 +237,22 @@ class Home extends Component {
         details={{
           name: "Pretoria",
           fajr: {
-            salaah: times.fajr ? this.amPmConvert(times.fajr.slice(0, 5)) : ""
+            salaah: times.fajr ? this.amPmConvert(times.fajr.slice(0, 5)) : "",
           },
           zuhr: {
-            salaah: times.zuhr ? this.amPmConvert(times.zuhr.slice(0, 5)) : ""
+            salaah: times.zuhr ? this.amPmConvert(times.zuhr.slice(0, 5)) : "",
           },
           asr: {
-            salaah: times.asr ? this.amPmConvert(times.asr.slice(0, 5)) : ""
+            salaah: times.asr ? this.amPmConvert(times.asr.slice(0, 5)) : "",
           },
           maghrib: {
             salaah: times.maghrib
               ? this.amPmConvert(times.maghrib.slice(0, 5))
-              : ""
+              : "",
           },
           esha: {
-            salaah: times.esha ? this.amPmConvert(times.esha.slice(0, 5)) : ""
-          }
+            salaah: times.esha ? this.amPmConvert(times.esha.slice(0, 5)) : "",
+          },
         }}
         currentSalaah={currentSalaah}
       />
@@ -265,10 +260,13 @@ class Home extends Component {
 
     const filteredTimes = this.filterLocations();
 
-    const formatNameForSearch = (name) => name.toLowerCase().replace('masjid ', '')
+    const formatNameForSearch = (name) =>
+      name.toLowerCase().replace("masjid ", "");
 
     const renderedTimes = filteredTimes
-      .sort((a, b) => (formatNameForSearch(a.name) < formatNameForSearch(b.name) ? 1 : -1))
+      .sort((a, b) =>
+        formatNameForSearch(a.name) < formatNameForSearch(b.name) ? 1 : -1
+      )
       .sort((a, b) => (a.isBookmark < b.isBookmark ? 1 : -1))
       .map((details, index) =>
         currentSalaah && details ? (
@@ -290,19 +288,19 @@ class Home extends Component {
 
     return (
       <div className="Home">
-        {
-          this.state.lastUpdated
-            ? <div className="info">last updated at {this.state.lastUpdated}</div>
-            : null
-        }
-        {
-          !this.props.searchTerm && !showGeneralInfo
-            ? <div className="error bold">{errorText}</div>
-            : null
-        }
+        {this.state.lastUpdated ? (
+          <div className="info">last updated at {this.state.lastUpdated}</div>
+        ) : null}
+        {!this.props.searchTerm && !showGeneralInfo ? (
+          <div className="error bold">{errorText}</div>
+        ) : null}
 
         {!this.props.searchTerm && showGeneralInfo ? renderedNext : null}
-        <FlipMove style={{ width: "100%" }} enterAnimation="fade" leaveAnimation="fade">
+        <FlipMove
+          style={{ width: "100%" }}
+          enterAnimation="fade"
+          leaveAnimation="fade"
+        >
           {!this.props.searchTerm && showGeneralInfo ? yourLocation : null}
           {renderedTimes}
         </FlipMove>
