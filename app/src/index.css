@@ -89,13 +89,6 @@ input {
   outline: none;
 }
 
-.search > .box::after {
-  content: url(images/SearchIcon.svg);
-  position: absolute;
-  margin-top: -2px;
-  margin-left: 20px;
-}
-
 /* Home */
 
 .Home {
@@ -103,7 +96,7 @@ input {
   padding: 15px;
 }
 
-.Home .error, 
+.Home .error,
 .Home .info {
   text-align: center;
 }
