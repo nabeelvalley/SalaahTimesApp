@@ -122,7 +122,11 @@ class Home extends Component {
     return newTime;
   };
 
-  getMapsLink = (plusCode = "") => {
+  getMapsLink = (plusCode) => {
+    if (!plusCode) {
+      return undefined;
+    }
+
     const trimmed = plusCode.trim();
     if (!trimmed) {
       return undefined;
